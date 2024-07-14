@@ -7,4 +7,5 @@ import com.example.demo.dto.RegisterDto;
 public interface AuthService {
     String register(RegisterDto registerDto);
     JwtAuthResponseDto login(LoginDto loginDto);
+    String registerAsAdmin(RegisterDto registerDto);
 }
