@@ -63,13 +63,16 @@ public class AuthServiceImpl implements AuthService {
 
         Optional<User> user = userRepository.findByUsernameOrEmail(loginDto.getUsernameOrEmail(),loginDto.getUsernameOrEmail());
         String role = null;
+        String username = null;
         if(user.isPresent()){
             User user1 = user.get();
+            username = user1.getUsername();
             Optional<Role> currentRole = user1.getRoles().stream().findFirst();
             if(currentRole.isPresent())
                 role = currentRole.get().getRole();
         }
         JwtAuthResponseDto responseDto = new JwtAuthResponseDto();
+        responseDto.setUsername(username);
         responseDto.setAccessToken(token);
         responseDto.setRole(role);
         return responseDto;
