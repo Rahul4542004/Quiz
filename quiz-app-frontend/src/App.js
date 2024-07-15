@@ -4,11 +4,13 @@ import { Login } from './components/Login';
 import { Register } from './components/Register';
 import { Test } from './components/Test';
 import { Resources } from './components/Resources';
+import { Main } from './components/Main';
 function App() {
   return (
     <BrowserRouter>
       <Header/>
       <Routes>
+        <Route path="/" element={<Main/>}></Route>
         <Route path = "/login" element={<Login/>}></Route>
         <Route path = "/register" element = {<Register/>}></Route>
         <Route path = "/resources" element = {<Resources/>}></Route>
