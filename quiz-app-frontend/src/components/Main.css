@@ -1,0 +1,40 @@
+/* Main.css */
+.main-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 100vh;
+    /* Full viewport height */
+    padding: 0 200px;
+    /* Adjust padding as needed */
+}
+.btn {
+    width: 400px;
+    height: 200px;
+    border: none;
+    border-radius: 50%;
+    font-size: 20px;
+    color: white;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.btn1 {
+    background: radial-gradient(circle at 24.1% 68.8%, rgb(50, 50, 50) 0%, rgb(0, 0, 0) 99.4%);
+    /* Initial background */
+}
+
+.btn2 {
+    background-color: black;
+    /* Black color */
+}
+
+.btn1:hover,
+.btn2:hover {
+    background: rgb(67, 171, 67);
+    /* Hover color */
+    transform: scale(1.05);
+}
