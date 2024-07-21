@@ -5,7 +5,6 @@ import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import Stack from "@mui/material/Stack";
 import { styled } from "@mui/material/styles";
-import { Box } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
 // Define styles for the cards
