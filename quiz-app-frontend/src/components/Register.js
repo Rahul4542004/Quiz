@@ -88,8 +88,6 @@ export const Register = () => {
           border: "solid 2px black",
           borderRadius: "15px",
           width: "800px",
-          background:
-            "radial-gradient(788px at 0.7% 3.4%, rgb(164, 231, 192) 0%, rgb(255, 255, 255) 90%)",
         }}
       >
         <Typography
@@ -99,8 +97,7 @@ export const Register = () => {
           sx={{
             width: "800px",
             textAlign: "center",
-            background:
-              "linear-gradient(98.3deg, rgb(255, 220, 0) 10.6%, rgb(255, 180, 0) 97.7%)",
+            background: "radial-gradient(circle at 24.1% 68.8%, rgb(50, 50, 50) 0%, rgb(0, 0, 0) 99.4%)",
             color: "white",
             paddingTop: "10px",
             paddingBottom: "10px",
@@ -184,12 +181,8 @@ export const Register = () => {
           variant="contained"
           sx={{
             marginTop: "30px",
-            backgroundColor: "rgba(255,165,0,0.7)",
             fontSize: "17px",
-            "&:hover": {
-              backgroundColor: "white",
-              color: "rgba(255,165,0,1.0)",
-            },
+            background: "radial-gradient(circle at 24.1% 68.8%, rgb(50, 50, 50) 0%, rgb(0, 0, 0) 99.4%)",
           }}
         >
           Sign Up

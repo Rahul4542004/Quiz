@@ -28,8 +28,7 @@ function Header({ isLoggedIn }) {
     <AppBar
       position="static"
       sx={{
-        background:
-          "linear-gradient(110.1deg, rgb(34, 126, 34) 2.9%, rgb(168, 251, 60) 90.3%)",
+        background: "radial-gradient(circle at 24.1% 68.8%, rgb(50, 50, 50) 0%, rgb(0, 0, 0) 99.4%)"
       }}
     >
       <Container maxWidth="xl">

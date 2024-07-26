@@ -6,15 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="51bda66e-3f19-4426-a042-8b3f80b01f6c" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/demo/DemoApplication.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/demo/DemoApplication.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/demo/entity/Answers.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/demo/entity/Answers.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/demo/entity/OSQuestions.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/demo/entity/OSQuestions.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/demo/repository/AnswersRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/demo/repository/AnswersRepository.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/demo/repository/OSQuestionsRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/demo/repository/OSQuestionsRepository.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../quiz-app-frontend/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/../quiz-app-frontend/src/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../quiz-app-frontend/src/components/Home.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../quiz-app-frontend/src/components/Header.js" beforeDir="false" afterPath="$PROJECT_DIR$/../quiz-app-frontend/src/components/Header.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../quiz-app-frontend/src/components/Login.js" beforeDir="false" afterPath="$PROJECT_DIR$/../quiz-app-frontend/src/components/Login.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../quiz-app-frontend/src/components/Register.js" beforeDir="false" afterPath="$PROJECT_DIR$/../quiz-app-frontend/src/components/Register.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -34,13 +27,6 @@
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
-  </component>
-  <component name="MavenImportPreferences">
-    <option name="generalSettings">
-      <MavenGeneralSettings>
-        <option name="mavenHomeTypeForPersistence" value="WRAPPER" />
-      </MavenGeneralSettings>
-    </option>
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 8
