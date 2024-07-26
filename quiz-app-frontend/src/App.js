@@ -6,14 +6,14 @@ import { Register } from './components/Register';
 import { Test } from './components/Test';
 import { Resources } from './components/Resources';
 import Main from './components/Main';
-import Home from './components/Home';
+// import Home from './components/Home';
 
 function App() {
   return (
     <BrowserRouter>
       <Header />
       <Routes>
-        <Route path="/" element={<Home />} />
+        {/* <Route path="/" element={<Home />} /> */}
         <Route path="/main" element={<Main />}></Route>
         <Route path="/login" element={<Login />}></Route>
         <Route path="/register" element={<Register />}></Route>
