@@ -6,9 +6,13 @@ import {
   Link,
   IconButton,
   InputAdornment,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import { setToken } from "../services/AuthService";
+import { register } from "../services/AuthService";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 
 export const Register = () => {
@@ -20,11 +24,13 @@ export const Register = () => {
   const [phoneNo, setPhoneNo] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [errors, setErrors] = useState({});
+  const [open, setOpen] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
   const navigate = useNavigate();
 
   const emailRegex = /^[a-zA-Z0-9._%+-]+@gmail\.com$/;
-  const passwordRegex = /^.{8,}$/;
+  const passwordRegex = /^(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,}$/;
   const phoneRegex = /^\d{10}$/;
   const firstNameRegex = /^[A-Za-z]{1,20}$/;
   const lastNameRegex = /^[A-Za-z]{1,20}$/;
@@ -33,26 +39,36 @@ export const Register = () => {
     e.preventDefault();
     const newErrors = {};
 
-    if (!emailRegex.test(email)) {
+    if (!firstName) {
+      newErrors.firstName = "This is a mandatory field";
+    } else if (!firstNameRegex.test(firstName)) {
+      newErrors.firstName = "Should not exceed 20 characters and contains only Alphabets";
+    }
+
+    if (!lastName) {
+      newErrors.lastName = "This is a mandatory field";
+    } else if (!lastNameRegex.test(lastName)) {
+      newErrors.lastName = "Should not exceed 20 characters and contains only Alphabets";
+    }
+
+    if (!username) {
+      newErrors.username = "This is a mandatory field";
+    }
+
+    if (!email) {
+      newErrors.email = "This is a mandatory field";
+    } else if (!emailRegex.test(email)) {
       newErrors.email = "Invalid email id";
     }
 
-    if (!passwordRegex.test(password)) {
-      newErrors.password = "Password is weaker";
+    if (!password) {
+      newErrors.password = "This is a mandatory field";
+    } else if (!passwordRegex.test(password)) {
+      newErrors.password = "Password must be at least 8 characters long, contain at least one uppercase letter, and one special character.";
     }
 
     if (phoneNo && !phoneRegex.test(phoneNo)) {
       newErrors.phoneNo = "Invalid phone number";
-    }
-
-    if (!firstNameRegex.test(firstName)) {
-      newErrors.firstName =
-        "Should not exceed 20 characters and contains only Alphabets";
-    }
-
-    if (!lastNameRegex.test(lastName)) {
-      newErrors.lastName =
-        "Should not exceed 20 characters and contains only Alphabets";
     }
 
     if (Object.keys(newErrors).length > 0) {
@@ -60,15 +76,24 @@ export const Register = () => {
       return;
     }
 
-    const user = { usernameOrEmail: username, password: password };
-    Register(user) // Replace this with the actual registration function
+    const user = { firstName, lastName, username, email, password, phoneNo };
+    register(user)
       .then((response) => {
-        console.log(response.data.username + " successfully registered");
-        const token = "Bearer " + response.data.accessToken;
-        setToken(token);
         navigate("/");
       })
-      .catch((err) => console.error(err));
+      .catch((err) => {
+        if (err.response) {
+          const { status, data } = err.response;
+          if (status === 409) {
+            setErrorMessage(data);
+          } else {
+            setErrorMessage("Unexpected error occurred");
+          }
+        } else {
+          setErrorMessage("Network error. Please try again later");
+        }
+        setOpen(true);
+      });
   };
 
   const handleClickShowPassword = () => {
@@ -77,8 +102,9 @@ export const Register = () => {
 
   return (
     <form
-      style={{ display: "flex", justifyContent: "center", marginTop: "80px", marginBottom:"80px" }}
+      style={{ display: "flex", justifyContent: "center", marginTop: "80px", marginBottom: "80px" }}
       onSubmit={handleSubmit}
+      noValidate
     >
       <div
         style={{
@@ -111,15 +137,23 @@ export const Register = () => {
           <TextField
             placeholder="Enter your first name"
             label="First Name"
-            onChange={(e) => setFirstName(e.target.value)}
+            onChange={(e) => { 
+              setFirstName(e.target.value);
+              setErrors(prevErrors => ({...prevErrors,firstName : ""}));
+            }}
             sx={{ width: "350px", marginTop: "30px", marginRight: "25px" }}
             error={!!errors.firstName}
             helperText={errors.firstName}
+            required
           />
           <TextField
             placeholder="Enter your last name"
+            required
             label="Last Name"
-            onChange={(e) => setLastName(e.target.value)}
+            onChange={(e) => { 
+              setLastName(e.target.value);
+              setErrors(prevErrors => ({...prevErrors,lastName : ""}));
+            }}
             sx={{ width: "350px", marginTop: "30px" }}
             error={!!errors.lastName}
             helperText={errors.lastName}
@@ -128,15 +162,25 @@ export const Register = () => {
 
         <div style={{ display: "flex" }}>
           <TextField
+            required
             placeholder="Set your username"
             label="Username"
-            onChange={(e) => setUsername(e.target.value)}
+            onChange={(e) => { 
+              setUsername(e.target.value);
+              setErrors(prevErrors => ({...prevErrors,username : ""}));
+            }}
             sx={{ width: "350px", marginTop: "30px", marginRight: "25px" }}
+            error={!!errors.username}
+            helperText={errors.username}
           />
           <TextField
             placeholder="Please enter a valid email"
             label="Email"
-            onChange={(e) => setEmail(e.target.value)}
+            required
+            onChange={(e) => { 
+              setEmail(e.target.value);
+              setErrors(prevErrors => ({...prevErrors,email : ""}));
+            }}
             sx={{ width: "350px", marginTop: "30px" }}
             error={!!errors.email}
             helperText={errors.email}
@@ -145,10 +189,14 @@ export const Register = () => {
 
         <div style={{ display: "flex" }}>
           <TextField
+            required
             placeholder="Keep a strong password"
             label="Password"
             type={showPassword ? "text" : "password"}
-            onChange={(e) => setPassword(e.target.value)}
+            onChange={(e) => { 
+              setPassword(e.target.value);
+              setErrors(prevErrors => ({...prevErrors,password : ""}));
+            }}
             sx={{ width: "350px", marginTop: "30px", marginRight: "25px" }}
             error={!!errors.password}
             helperText={errors.password}
@@ -170,7 +218,10 @@ export const Register = () => {
           <TextField
             placeholder="Enter your valid phone number"
             label="Phone Number"
-            onChange={(e) => setPhoneNo(e.target.value)}
+            onChange={(e) => { 
+              setPhoneNo(e.target.value);
+              setErrors(prevErrors => ({...prevErrors,phoneNo : ""}));
+            }}
             sx={{ width: "350px", marginTop: "30px" }}
             error={!!errors.phoneNo}
             helperText={errors.phoneNo}
@@ -200,6 +251,27 @@ export const Register = () => {
           </Link>
         </Typography>
       </div>
+      <Dialog
+        open={open}
+        onClose={() => setOpen(false)}
+
+      >
+        <DialogTitle sx={{ fontWeight: "bold" }}>Error</DialogTitle>
+        <DialogContent>
+          <Typography >{errorMessage}</Typography>
+        </DialogContent>
+        <DialogActions>
+          <Button
+            onClick={() => setOpen(false)}
+            variant="contained"
+            sx={{
+              background: "radial-gradient(circle at 24.1% 68.8%, rgb(50, 50, 50) 0%, rgb(0, 0, 0) 99.4%)",
+            }}
+          >
+            OK
+          </Button>
+        </DialogActions>
+      </Dialog>
     </form>
   );
 };

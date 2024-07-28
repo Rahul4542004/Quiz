@@ -10,11 +10,14 @@ import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
+import { useNavigate } from "react-router-dom";
+import { isUserLoggedIn, logout } from "../services/AuthService";
 
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
-function Header({ isLoggedIn }) {
+function Header() {
   const [anchorElUser, setAnchorElUser] = React.useState(null);
+  const navigate = useNavigate();
 
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
@@ -24,11 +27,24 @@ function Header({ isLoggedIn }) {
     setAnchorElUser(null);
   };
 
+  const handleLogout = () => {
+    logout();
+    navigate("/");
+  };
+
+  const handleMenuItemClick = (setting) => {
+    if (setting === "Logout") {
+      handleLogout();
+    } else {
+      handleCloseUserMenu();
+    }
+  };
+
   return (
     <AppBar
       position="static"
       sx={{
-        background: "radial-gradient(circle at 24.1% 68.8%, rgb(50, 50, 50) 0%, rgb(0, 0, 0) 99.4%)"
+        background: "radial-gradient(circle at 24.1% 68.8%, rgb(50, 50, 50) 0%, rgb(0, 0, 0) 99.4%)",
       }}
     >
       <Container maxWidth="xl">
@@ -52,14 +68,11 @@ function Header({ isLoggedIn }) {
           </Typography>
 
           <Box sx={{ display: "flex", alignItems: "center" }}>
-            {isLoggedIn ? (
+            {isUserLoggedIn() ? (
               <>
                 <Tooltip title="Open settings">
                   <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                    <Avatar
-                      alt="User Avatar"
-                      src="/static/images/avatar/2.jpg"
-                    />
+                    <Avatar alt="User Avatar" src="/static/images/avatar/2.jpg" />
                   </IconButton>
                 </Tooltip>
                 <Menu
@@ -79,7 +92,7 @@ function Header({ isLoggedIn }) {
                   onClose={handleCloseUserMenu}
                 >
                   {settings.map((setting) => (
-                    <MenuItem key={setting} onClick={handleCloseUserMenu}>
+                    <MenuItem key={setting} onClick={() => handleMenuItemClick(setting)}>
                       <Typography textAlign="center">{setting}</Typography>
                     </MenuItem>
                   ))}
@@ -93,12 +106,13 @@ function Header({ isLoggedIn }) {
                     "linear-gradient(98.3deg, rgb(255, 220, 0) 10.6%, rgb(255, 180, 0) 97.7%)",
                   color: "#000",
                   borderRadius: "4px",
-                  "&:hover": {
-                    background:
-                      "linear-gradient(98.3deg, rgb(0, 0, 0) 10.6%, rgb(255, 0, 0) 97.7%)",
+                  transition: "all 0.3s ease",
+                  '&:hover': {
+                    background: "linear-gradient(98.3deg, rgb(255, 240, 100) 10.6%, rgb(255, 210, 100) 97.7%)",
+                    transform: "scale(1.10)",
                   },
-                  transition: "background 0.3s ease",
                 }}
+                onClick={() => navigate("/login")}
               >
                 LOGIN/REGISTER
               </Button>
