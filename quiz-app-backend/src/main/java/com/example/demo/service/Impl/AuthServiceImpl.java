@@ -6,6 +6,7 @@ import com.example.demo.dto.RegisterDto;
 import com.example.demo.entity.Role;
 import com.example.demo.entity.User;
 import com.example.demo.exception.CustomException;
+import com.example.demo.exception.UserNotFoundException;
 import com.example.demo.repository.RoleRepository;
 import com.example.demo.repository.UserRepository;
 import com.example.demo.security.JwtTokenProvider;
@@ -16,6 +17,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -32,10 +34,10 @@ public class AuthServiceImpl implements AuthService {
     @Override
     public String register(RegisterDto registerDto) {
         if(userRepository.existsByUsername(registerDto.getUsername())){
-            throw new CustomException(HttpStatus.BAD_REQUEST,"Username already exists");
+            throw new UserNotFoundException("Username already exists");
         }
         if(userRepository.existsByEmail(registerDto.getEmail())){
-            throw new CustomException(HttpStatus.BAD_REQUEST,"Email already exists");
+            throw new UserNotFoundException("Email already exists");
         }
         User user = new User();
         user.setEmail(registerDto.getEmail());

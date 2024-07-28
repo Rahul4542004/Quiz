@@ -8,7 +8,7 @@ import {
   InputAdornment,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import { login, setToken } from "../services/AuthService";
+import { isUserLoggedIn, login, saveUser, setToken } from "../services/AuthService";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 
 export const Login = () => {
@@ -22,8 +22,8 @@ export const Login = () => {
     const user = { usernameOrEmail: username, password: password };
     login(user)
       .then((response) => {
-        console.log(response.data.username + " successfully logged in");
         const token = "Bearer " + response.data.accessToken;
+        saveUser(response.data.username);
         setToken(token);
         navigate("/");
       })
