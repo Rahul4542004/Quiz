@@ -52,9 +52,7 @@ public class QuestionsServiceImpl implements QuestionsService {
         }
         return result;
     }
-
-    @Override
-    public Boolean processResponse(ResponseDto responseDto) {
+    private Boolean processResponse(ResponseDto responseDto) {
         long id = responseDto.getId();
         OSQuestions question = osQuestionsRepository.findById(id).orElseThrow(() -> new UserNotFoundException("Unexpected error occured"));
         Optional<Answers> answers = question.getAnswers().stream().findFirst();
@@ -64,5 +62,14 @@ public class QuestionsServiceImpl implements QuestionsService {
                 flag = true;
         }
         return flag;
+    }
+    @Override
+    public String processResponses(List<ResponseDto> list){
+        int score = 0;
+        for(ResponseDto responseDto : list){
+            if(processResponse(responseDto))
+                score++;
+        }
+        return "Your score is " + score + "/5";
     }
 }

@@ -1,5 +1,6 @@
 package com.example.demo.dto;
 
+import com.example.demo.entity.User;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,4 +15,5 @@ public class JwtAuthResponseDto {
     private String tokenType = "Bearer";
     private String role;
     private String username;
+    private User user;
 }

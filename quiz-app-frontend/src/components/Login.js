@@ -23,7 +23,9 @@ export const Login = () => {
     login(user)
       .then((response) => {
         const token = "Bearer " + response.data.accessToken;
-        saveUser(response.data.username);
+        // saveUser(response.data.username);
+        saveUser(response.data.user);
+        console.log(response.data.user);
         setToken(token);
         navigate("/");
       })

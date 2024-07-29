@@ -26,8 +26,8 @@ public class QuestionsController {
         return ResponseEntity.ok(list);
     }
     @PostMapping("/os/submit")
-    public ResponseEntity<Boolean> processResponse(@RequestBody ResponseDto responseDto){
-        Boolean result = questionsService.processResponse(responseDto);
+    public ResponseEntity<String> processResponse(@RequestBody List<ResponseDto> responseDto){
+        String result = questionsService.processResponses(responseDto);
         return ResponseEntity.ok(result);
     }
 }

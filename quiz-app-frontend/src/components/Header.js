@@ -35,7 +35,11 @@ function Header() {
   const handleMenuItemClick = (setting) => {
     if (setting === "Logout") {
       handleLogout();
-    } else {
+    }
+    else if(setting === "Account"){
+      navigate("/account")
+    }
+    else {
       handleCloseUserMenu();
     }
   };
