@@ -4,10 +4,10 @@ const AUTH_URL = "http://localhost:8095/api/auth";
 export const login = (user) => axios.post(AUTH_URL + "/login",user);
 export const register = (user) => axios.post(AUTH_URL + "/register",user);
 export const setToken = (token) => localStorage.setItem("token",token)
-export const saveUser = (username) => localStorage.setItem("username",username);
-export const getUsername = () => localStorage.getItem("username");
+export const saveUser = (user) => localStorage.setItem("user",JSON.stringify(user));
+export const getUser = () => localStorage.getItem("user");
 export const isUserLoggedIn = () => {
-  const user = localStorage.getItem("username");
+  const user = localStorage.getItem("user");
   return user !== null;
 }
 export const logout = () => {

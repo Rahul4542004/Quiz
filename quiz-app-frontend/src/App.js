@@ -6,6 +6,7 @@ import { Register } from './components/Register';
 import { Test } from './components/Test';
 import { Resources } from './components/Resources';
 import Main from './components/Main';
+import { Account } from './components/Account';
 // import Home from './components/Home';
 
 function App() {
@@ -15,6 +16,7 @@ function App() {
       <Routes>
         {/* <Route path="/" element={<Home />} /> */}
         <Route path="/" element={<Main />}></Route>
+        <Route path="/account" element={<Account/>}></Route>
         <Route path="/login" element={<Login />}></Route>
         <Route path="/register" element={<Register />}></Route>
         <Route path="/resources" element={<Resources />}></Route>

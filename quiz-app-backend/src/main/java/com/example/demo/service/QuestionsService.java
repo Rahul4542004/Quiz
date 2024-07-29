@@ -7,5 +7,5 @@ import java.util.*;
 public interface QuestionsService {
     String addOSQuestion(QuestionsDto questionsDto);
     List<QuestionsDto> getOSQuestions();
-    Boolean processResponse(ResponseDto responseDto);
+    String processResponses(List<ResponseDto> responseDto);
 }
