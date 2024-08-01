@@ -39,6 +39,9 @@ function Header() {
     else if(setting === "Account"){
       navigate("/account")
     }
+    else if(setting === "Dashboard"){
+      navigate("/");
+    }
     else {
       handleCloseUserMenu();
     }

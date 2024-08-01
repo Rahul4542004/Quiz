@@ -32,7 +32,8 @@ public class OSQuestions {
 
     @Column(name = "description")
     private String description;
-
+    @Column(name = "topic")
+    private String topic;
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(
             name = "os_question_answers",

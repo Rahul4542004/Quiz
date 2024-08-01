@@ -16,4 +16,5 @@ public class QuestionsDto {
     private String option_c;
     private String option_d;
     private String option;
+    private String topic;
 }

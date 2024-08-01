@@ -8,7 +8,7 @@ import {
   InputAdornment,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import { isUserLoggedIn, login, saveUser, setToken } from "../services/AuthService";
+import { login, saveUser, setToken } from "../services/AuthService";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 
 export const Login = () => {
