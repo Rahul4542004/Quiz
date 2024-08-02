@@ -3,6 +3,7 @@ package com.example.demo.service.Impl;
 import com.example.demo.dto.JwtAuthResponseDto;
 import com.example.demo.dto.LoginDto;
 import com.example.demo.dto.RegisterDto;
+import com.example.demo.dto.UpdateDto;
 import com.example.demo.entity.Role;
 import com.example.demo.entity.User;
 import com.example.demo.exception.CustomException;
@@ -103,5 +104,48 @@ public class AuthServiceImpl implements AuthService {
         user.setRoles(roles);
         userRepository.save(user);
         return "User successfully registered";
+    }
+
+    @Override
+    public String updateInformation(UpdateDto user) {
+        User currentUser = userRepository.findByUsername(user.getUsername());
+        boolean isUpdated = false;
+        if(user.getEmail()!=null && !user.getEmail().equals(currentUser.getEmail())){
+            isUpdated = true;
+            currentUser.setEmail(user.getEmail());
+        }
+        if(user.getFirstName()!=null && !user.getFirstName().equals(currentUser.getFirstName()))
+        {
+            isUpdated = true;
+            currentUser.setFirstName(user.getFirstName());
+        }
+        if(user.getLastName()!=null && !user.getLastName().equals(currentUser.getLastName()))
+        {
+            isUpdated = true;
+            currentUser.setLastName(user.getLastName());
+        }
+        if(user.getGender()!=null && !user.getGender().equals(currentUser.getGender()))
+        {
+            isUpdated = true;
+            currentUser.setGender(user.getGender());
+        }
+        if(user.getInstitution()!=null && !user.getInstitution().equals(currentUser.getInstitution())){
+            isUpdated = true;
+            currentUser.setInstitution(user.getInstitution());
+        }
+        if(user.getPhoneNo()!=null && !user.getPhoneNo().equals(currentUser.getPhoneNo())){
+            isUpdated = true;
+            currentUser.setPhoneNo(user.getPhoneNo());
+        }
+        if(user.getDob()!=null && !user.getDob().equals(currentUser.getDob())){
+            isUpdated = true;
+            currentUser.setDob(user.getDob());
+        }
+        if(isUpdated) {
+            userRepository.save(currentUser);
+            return "User details successfully updated";
+        }
+        else
+            return "No changes detected";
     }
 }

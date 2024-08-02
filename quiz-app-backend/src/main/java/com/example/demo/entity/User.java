@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.Date;
 import java.util.Set;
 
 @AllArgsConstructor
@@ -28,6 +29,9 @@ public class User {
     @Column(nullable = false)
     private String password;
     private String phoneNo;
+    private String gender;
+    private String institution;
+    private Date dob;
     @ManyToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     @JoinTable(name = "user_roles",
             joinColumns = @JoinColumn(name = "user_id",referencedColumnName = "id"),

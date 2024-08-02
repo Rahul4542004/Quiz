@@ -3,6 +3,7 @@ package com.example.demo.controller;
 import com.example.demo.dto.JwtAuthResponseDto;
 import com.example.demo.dto.LoginDto;
 import com.example.demo.dto.RegisterDto;
+import com.example.demo.dto.UpdateDto;
 import com.example.demo.service.AuthService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -29,5 +30,10 @@ public class AuthController {
     public ResponseEntity<String> registerAsAdmin(@RequestBody RegisterDto registerDto){
         String message = authService.registerAsAdmin(registerDto);
         return new ResponseEntity<>(message,HttpStatus.CREATED);
+    }
+    @PostMapping("/update/information")
+    public ResponseEntity<String> updateInformation(@RequestBody UpdateDto updateDto){
+        String message = authService.updateInformation(updateDto);
+        return ResponseEntity.ok(message);
     }
 }
