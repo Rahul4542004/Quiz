@@ -47,7 +47,7 @@ export const Account = () => {
       </AppBar>
 
       <Paper elevation={3} style={{ padding: "1rem", marginBottom: "1rem" }}>
-        <Typography variant="h6" gutterBottom>
+        <Typography sx={{fontWeight : "bold",marginBottom : "20px"}} variant="h5" gutterBottom>
           Basic Info
         </Typography>
         <Grid container spacing={2}>
@@ -123,11 +123,6 @@ export const Account = () => {
               </Grid>
             </Grid>
           </Grid>
-        </Grid>
-      </Paper>
-
-      <Paper elevation={3} style={{ padding: "1rem", marginBottom: "1rem" }}>
-        <Grid container spacing={2}>
           <Grid item xs={12}>
             <Grid container alignItems="center" spacing={2}>
               <Grid item xs={6}>
@@ -142,11 +137,6 @@ export const Account = () => {
               </Grid>
             </Grid>
           </Grid>
-        </Grid>
-      </Paper>
-
-      <Paper elevation={3} style={{ padding: "1rem", marginBottom: "1rem" }}>
-        <Grid container spacing={2}>
           <Grid item xs={12}>
             <Grid container alignItems="center" spacing={2}>
               <Grid item xs={6}>
@@ -161,11 +151,6 @@ export const Account = () => {
               </Grid>
             </Grid>
           </Grid>
-        </Grid>
-      </Paper>
-
-      <Paper elevation={3} style={{ padding: "1rem", marginBottom: "1rem" }}>
-        <Grid container spacing={2}>
           <Grid item xs={12}>
             <Grid container alignItems="center" spacing={2}>
               <Grid item xs={6}>
@@ -180,11 +165,18 @@ export const Account = () => {
                 </Button>
               </Grid>
             </Grid>
-          </Grid>
+        </Grid>
         </Grid>
       </Paper>
+{/* 
+      <Paper elevation={3} style={{ padding: "1rem", marginBottom: "1rem" }}>
+      </Paper>
 
-      {/* Continue with more fields like Birthday, Summary, Website, etc. */}
+      <Paper elevation={3} style={{ padding: "1rem", marginBottom: "1rem" }}>
+      </Paper>
+
+      <Paper elevation={3} style={{ padding: "1rem", marginBottom: "1rem" }}>
+      </Paper> */}
     </main>
   );
 };

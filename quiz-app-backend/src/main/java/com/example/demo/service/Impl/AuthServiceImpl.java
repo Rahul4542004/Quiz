@@ -47,7 +47,9 @@ public class AuthServiceImpl implements AuthService {
         user.setPassword(passwordEncoder.encode(registerDto.getPassword()));
         user.setUsername(registerDto.getUsername());
         user.setPhoneNo(registerDto.getPhoneNo());
-
+        user.setGender("");
+        user.setInstitution("");
+        user.setDob("");
         Set<Role> roles = new HashSet<>();
         Role role = roleRepository.findByRole("ROLE_USER");
         roles.add(role);
@@ -87,7 +89,7 @@ public class AuthServiceImpl implements AuthService {
         if(userRepository.existsByUsername(registerDto.getUsername())){
             throw new CustomException(HttpStatus.BAD_REQUEST,"Username already exists");
         }
-        if(userRepository.existsByEmail(registermDto.getEmail())){
+        if(userRepository.existsByEmail(registerDto.getEmail())){
             throw new CustomException(HttpStatus.BAD_REQUEST,"Email already exists");
         }
         User user = new User();

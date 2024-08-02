@@ -31,7 +31,7 @@ public class User {
     private String phoneNo;
     private String gender;
     private String institution;
-    private Date dob;
+    private String dob;
     @ManyToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     @JoinTable(name = "user_roles",
             joinColumns = @JoinColumn(name = "user_id",referencedColumnName = "id"),

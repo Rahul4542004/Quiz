@@ -17,5 +17,5 @@ public class UpdateDto {
     private String phoneNo;
     private String gender;
     private String institution;
-    private Date dob;
+    private String dob;
 }
