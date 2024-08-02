@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="08c548e1-aaba-4471-a8b7-e1432c32d9b4" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/quiz-app-backend/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/quiz-app-backend/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/quiz-app-backend/target/classes/com/example/demo/config/SpringSecurityConfig.class" beforeDir="false" afterPath="$PROJECT_DIR$/quiz-app-backend/target/classes/com/example/demo/config/SpringSecurityConfig.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/quiz-app-backend/target/classes/com/example/demo/controller/AuthController.class" beforeDir="false" afterPath="$PROJECT_DIR$/quiz-app-backend/target/classes/com/example/demo/controller/AuthController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/quiz-app-backend/target/classes/com/example/demo/controller/QuestionsController.class" beforeDir="false" afterPath="$PROJECT_DIR$/quiz-app-backend/target/classes/com/example/demo/controller/QuestionsController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/quiz-app-backend/target/classes/com/example/demo/dto/JwtAuthResponseDto.class" beforeDir="false" afterPath="$PROJECT_DIR$/quiz-app-backend/target/classes/com/example/demo/dto/JwtAuthResponseDto.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/quiz-app-backend/target/classes/com/example/demo/dto/QuestionsDto.class" beforeDir="false" afterPath="$PROJECT_DIR$/quiz-app-backend/target/classes/com/example/demo/dto/QuestionsDto.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/quiz-app-backend/target/classes/com/example/demo/dto/ResponseDto.class" beforeDir="false" afterPath="$PROJECT_DIR$/quiz-app-backend/target/classes/com/example/demo/dto/ResponseDto.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/quiz-app-backend/target/classes/com/example/demo/dto/TopicDto.class" beforeDir="false" afterPath="$PROJECT_DIR$/quiz-app-backend/target/classes/com/example/demo/dto/TopicDto.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/quiz-app-backend/target/classes/com/example/demo/dto/UpdateDto.class" beforeDir="false" afterPath="$PROJECT_DIR$/quiz-app-backend/target/classes/com/example/demo/dto/UpdateDto.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/quiz-app-backend/target/classes/com/example/demo/entity/CNSQuestions.class" beforeDir="false" afterPath="$PROJECT_DIR$/quiz-app-backend/target/classes/com/example/demo/entity/CNSQuestions.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/quiz-app-backend/target/classes/com/example/demo/entity/DBMSQuestions.class" beforeDir="false" afterPath="$PROJECT_DIR$/quiz-app-backend/target/classes/com/example/demo/entity/DBMSQuestions.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/quiz-app-backend/target/classes/com/example/demo/entity/OOPSQuestions.class" beforeDir="false" afterPath="$PROJECT_DIR$/quiz-app-backend/target/classes/com/example/demo/entity/OOPSQuestions.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/quiz-app-backend/target/classes/com/example/demo/entity/OSQuestions.class" beforeDir="false" afterPath="$PROJECT_DIR$/quiz-app-backend/target/classes/com/example/demo/entity/OSQuestions.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/quiz-app-backend/target/classes/com/example/demo/entity/User.class" beforeDir="false" afterPath="$PROJECT_DIR$/quiz-app-backend/target/classes/com/example/demo/entity/User.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/quiz-app-backend/target/classes/com/example/demo/exception/GlobalExceptionHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/quiz-app-backend/target/classes/com/example/demo/exception/GlobalExceptionHandler.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/quiz-app-backend/target/classes/com/example/demo/mapper/Mapper.class" beforeDir="false" afterPath="$PROJECT_DIR$/quiz-app-backend/target/classes/com/example/demo/mapper/Mapper.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/quiz-app-backend/target/classes/com/example/demo/repository/AnswersRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/quiz-app-backend/target/classes/com/example/demo/repository/AnswersRepository.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/quiz-app-backend/target/classes/com/example/demo/repository/CNSRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/quiz-app-backend/target/classes/com/example/demo/repository/CNSRepository.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/quiz-app-backend/target/classes/com/example/demo/repository/DBMSQuestionsRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/quiz-app-backend/target/classes/com/example/demo/repository/DBMSQuestionsRepository.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/quiz-app-backend/target/classes/com/example/demo/repository/OOPSRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/quiz-app-backend/target/classes/com/example/demo/repository/OOPSRepository.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/quiz-app-backend/target/classes/com/example/demo/repository/OSQuestionsRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/quiz-app-backend/target/classes/com/example/demo/repository/OSQuestionsRepository.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/quiz-app-backend/target/classes/com/example/demo/repository/UserRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/quiz-app-backend/target/classes/com/example/demo/repository/UserRepository.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/quiz-app-backend/target/classes/com/example/demo/security/CustomUserDetails.class" beforeDir="false" afterPath="$PROJECT_DIR$/quiz-app-backend/target/classes/com/example/demo/security/CustomUserDetails.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/quiz-app-backend/target/classes/com/example/demo/security/JwtAuthenticationFilter.class" beforeDir="false" afterPath="$PROJECT_DIR$/quiz-app-backend/target/classes/com/example/demo/security/JwtAuthenticationFilter.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/quiz-app-backend/target/classes/com/example/demo/service/AuthService.class" beforeDir="false" afterPath="$PROJECT_DIR$/quiz-app-backend/target/classes/com/example/demo/service/AuthService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/quiz-app-backend/target/classes/com/example/demo/service/Impl/AuthServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/quiz-app-backend/target/classes/com/example/demo/service/Impl/AuthServiceImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/quiz-app-backend/target/classes/com/example/demo/service/Impl/QuestionsServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/quiz-app-backend/target/classes/com/example/demo/service/Impl/QuestionsServiceImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/quiz-app-backend/target/classes/com/example/demo/service/QuestionsService.class" beforeDir="false" afterPath="$PROJECT_DIR$/quiz-app-backend/target/classes/com/example/demo/service/QuestionsService.class" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 0
+}]]></component>
+  <component name="ProjectId" id="2k5iaesXT6xmgNlbkiogkotEuJT" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "prem",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "D:/quiz/quiz-app-backend"
+  }
+}]]></component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="08c548e1-aaba-4471-a8b7-e1432c32d9b4" name="Changes" comment="" />
+      <created>1722579902480</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1722579902480</updated>
+    </task>
+    <servers />
+  </component>
+</project>
