@@ -71,7 +71,7 @@ function Header() {
               textDecoration: "none",
             }}
           >
-            QUIZZ-APP
+            INTELLIQUEST
           </Typography>
 
           <Box sx={{ display: "flex", alignItems: "center" }}>

@@ -2,14 +2,11 @@ package com.example.demo.controller;
 
 import com.example.demo.dto.QuestionsDto;
 import com.example.demo.dto.ResponseDto;
-import com.example.demo.dto.TopicDto;
 import com.example.demo.service.QuestionsService;
 import lombok.AllArgsConstructor;
-import org.apache.coyote.Response;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import java.util.*;
 @RequestMapping("/api/questions")
@@ -19,9 +16,11 @@ import java.util.*;
 public class QuestionsController {
     QuestionsService questionsService;
     @PostMapping("/os")
-    public ResponseEntity<String> addOSQuestion(@RequestBody QuestionsDto questionsDto){
-        String message = questionsService.addOSQuestion(questionsDto);
-        return new ResponseEntity<>(message, HttpStatus.CREATED);
+    public ResponseEntity<String> addOSQuestion(@RequestBody List<QuestionsDto> list){
+        for(QuestionsDto questionsDto : list) {
+            questionsService.addOSQuestion(questionsDto);
+        }
+        return new ResponseEntity<>("All OS questions added", HttpStatus.CREATED);
     }
     @GetMapping("/os")
     public ResponseEntity<List<QuestionsDto>> getOSQuestions(){
@@ -29,8 +28,8 @@ public class QuestionsController {
         return ResponseEntity.ok(list);
     }
     @GetMapping("/os/topic")
-    public ResponseEntity<List<QuestionsDto>> getOSQuestions(@RequestBody TopicDto topicDto){
-        List<QuestionsDto> list = questionsService.getOSQuestions(topicDto.getTopic());
+    public ResponseEntity<List<QuestionsDto>> getOSQuestions(@RequestParam String topic){
+        List<QuestionsDto> list = questionsService.getOSQuestions(topic);
         return ResponseEntity.ok(list);
     }
     @PostMapping("/os/submit")
@@ -39,9 +38,11 @@ public class QuestionsController {
         return ResponseEntity.ok(result);
     }
     @PostMapping("/dbms")
-    public ResponseEntity<String> addDBMSQuestion(@RequestBody QuestionsDto questionsDto){
-        String message = questionsService.addDBMSQuestion(questionsDto);
-        return new ResponseEntity<>(message,HttpStatus.CREATED);
+    public ResponseEntity<String> addDBMSQuestion(@RequestBody List<QuestionsDto> list){
+        for(QuestionsDto questionsDto : list){
+            questionsService.addDBMSQuestion(questionsDto);
+        }
+        return new ResponseEntity<>("All DBMS questions added",HttpStatus.CREATED);
     }
     @GetMapping("/dbms")
     public ResponseEntity<List<QuestionsDto>> getDBMSQuestions(){
@@ -49,8 +50,8 @@ public class QuestionsController {
         return ResponseEntity.ok(list);
     }
     @GetMapping("/dbms/topic")
-    public ResponseEntity<List<QuestionsDto>> getDBMSQuestions(@RequestBody TopicDto topicDto){
-        List<QuestionsDto> list = questionsService.getDBMSQuestions(topicDto.getTopic());
+    public ResponseEntity<List<QuestionsDto>> getDBMSQuestions(@RequestParam String topic){
+        List<QuestionsDto> list = questionsService.getDBMSQuestions(topic);
         return ResponseEntity.ok(list);
     }
     @PostMapping("/dbms/submit")
@@ -59,9 +60,10 @@ public class QuestionsController {
         return ResponseEntity.ok(message);
     }
     @PostMapping("/cns")
-    public ResponseEntity<String> addCNSQuestion(@RequestBody QuestionsDto questionsDto){
-        String message = questionsService.addCNSQuestion(questionsDto);
-        return new ResponseEntity<>(message,HttpStatus.CREATED);
+    public ResponseEntity<String> addCNSQuestion(@RequestBody List<QuestionsDto> list){
+        for(QuestionsDto questionsDto : list)
+            questionsService.addCNSQuestion(questionsDto);
+        return new ResponseEntity<>("All CNS questions added",HttpStatus.CREATED);
     }
     @GetMapping("/cns")
     public ResponseEntity<List<QuestionsDto>> getCNSQuestions(){
@@ -69,8 +71,8 @@ public class QuestionsController {
         return ResponseEntity.ok(list);
     }
     @GetMapping("/cns/topic")
-    public ResponseEntity<List<QuestionsDto>> getCNSQuestions(@RequestBody TopicDto topicDto){
-        List<QuestionsDto> list = questionsService.getCNSQuestions(topicDto.getTopic());
+    public ResponseEntity<List<QuestionsDto>> getCNSQuestions(@RequestParam String topic){
+        List<QuestionsDto> list = questionsService.getCNSQuestions(topic);
         return ResponseEntity.ok(list);
     }
     @PostMapping("/cns/submit")
@@ -79,9 +81,10 @@ public class QuestionsController {
         return ResponseEntity.ok(message);
     }
     @PostMapping("/oops")
-    public ResponseEntity<String> addOOPSQuestion(@RequestBody QuestionsDto questionsDto){
-        String message = questionsService.addOOPSQuestion(questionsDto);
-        return new ResponseEntity<>(message,HttpStatus.CREATED);
+    public ResponseEntity<String> addOOPSQuestion(@RequestBody List<QuestionsDto> list){
+        for(QuestionsDto questionsDto : list)
+            questionsService.addOOPSQuestion(questionsDto);
+        return new ResponseEntity<>("All OOPS questions added",HttpStatus.CREATED);
     }
     @GetMapping("/oops")
     public ResponseEntity<List<QuestionsDto>> getOOPSQuestions(){
@@ -89,11 +92,11 @@ public class QuestionsController {
         return ResponseEntity.ok(list);
     }
     @GetMapping("/oops/topic")
-    public ResponseEntity<List<QuestionsDto>> getOOPSQuestions(@RequestBody TopicDto topicDto){
-        List<QuestionsDto> list = questionsService.getOOPSQuestions(topicDto.getTopic());
+    public ResponseEntity<List<QuestionsDto>> getOOPSQuestions(@RequestParam String topic){
+        List<QuestionsDto> list = questionsService.getOOPSQuestions(topic);
         return ResponseEntity.ok(list);
     }
-    @PostMapping("oops/submit")
+    @PostMapping("/oops/submit")
     public ResponseEntity<String> processOOPSResponses(@RequestBody List<ResponseDto> responseDtos){
         String message = questionsService.processOOPSResponses(responseDtos);
         return ResponseEntity.ok(message);
