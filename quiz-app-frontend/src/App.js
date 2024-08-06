@@ -7,6 +7,7 @@ import { Test } from './components/Test';
 import { Resources } from './components/Resources';
 import Main from './components/Main';
 import { Account } from './components/Account';
+import { Quiz } from './components/Quiz';
 // import Home from './components/Home';
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
         <Route path="/register" element={<Register />}></Route>
         <Route path="/resources" element={<Resources />}></Route>
         <Route path="/test" element={<Test />}></Route>
+        <Route path="/test/:subject/:topic" element={<Quiz/>}></Route>
       </Routes>
     </BrowserRouter>
   );

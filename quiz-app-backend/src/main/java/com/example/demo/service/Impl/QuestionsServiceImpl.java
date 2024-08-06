@@ -90,16 +90,15 @@ public class QuestionsServiceImpl implements QuestionsService {
         for(OSQuestions question : map.values()){
             QuestionsDto questionsDto = new QuestionsDto();
             questionsDto.setDescription(question.getDescription());
-            Optional<Answers> answer = question.getAnswers().stream().findFirst();
-            answer.ifPresent(answers -> questionsDto.setOption(answers.getOptions()));
             questionsDto.setOption_a(question.getOptionA());
             questionsDto.setOption_b(question.getOptionB());
             questionsDto.setOption_c(question.getOptionC());
             questionsDto.setOption_d(question.getOptionD());
-            questionsDto.setTopic(question.getTopic());
+            questionsDto.setId(question.getId());
             result.add(questionsDto);
         }
-        return result;
+        Collections.shuffle(result);
+        return result.stream().limit(30).collect(Collectors.toList());
     }
     private Boolean processResponse(ResponseDto responseDto) {
         long id = responseDto.getId();
@@ -121,18 +120,22 @@ public class QuestionsServiceImpl implements QuestionsService {
 
     @Override
     public List<QuestionsDto> getOSQuestions(String topic) {
-        List<OSQuestions> list = new ArrayList<>(osQuestionsRepository.findByTopic(topic));
+        List<OSQuestions> list = new ArrayList<>();
+        for(OSQuestions question : map.values()){
+            if(question.getTopic().equals(topic))
+                list.add(question);
+        }
+        Collections.shuffle(list);
+        List<OSQuestions> filteredList = list.stream().limit(15).toList();
         List<QuestionsDto> result = new ArrayList<>();
-        for(OSQuestions question : list){
+        for(OSQuestions question : filteredList){
             QuestionsDto questionsDto = new QuestionsDto();
             questionsDto.setDescription(question.getDescription());
-            Optional<Answers> answer = question.getAnswers().stream().findFirst();
-            answer.ifPresent(answers -> questionsDto.setOption(answers.getOptions()));
             questionsDto.setOption_a(question.getOptionA());
             questionsDto.setOption_b(question.getOptionB());
             questionsDto.setOption_c(question.getOptionC());
             questionsDto.setOption_d(question.getOptionD());
-            questionsDto.setTopic(question.getTopic());
+            questionsDto.setId(question.getId());
             result.add(questionsDto);
         }
         return result;
@@ -161,20 +164,28 @@ public class QuestionsServiceImpl implements QuestionsService {
         List<QuestionsDto> result = new ArrayList<>();
         for(DBMSQuestions question : map1.values()){
             QuestionsDto questionsDto = Mapper.mapToQuestionsDto(question);
+            questionsDto.setId(question.getId());
             result.add(questionsDto);
         }
-        return result;
+        Collections.shuffle(result);
+        return result.stream().limit(30).collect(Collectors.toList());
     }
 
     @Override
     public List<QuestionsDto> getDBMSQuestions(String topic) {
-        Set<DBMSQuestions> list = dbmsQuestionsRepository.findByTopic(topic);
+        Set<DBMSQuestions> list = new HashSet<>();
         List<QuestionsDto> result = new ArrayList<>();
+        for(DBMSQuestions question : map1.values()){
+            if(question.getTopic().equals(topic))
+                list.add(question);
+        }
         for(DBMSQuestions question : list){
             QuestionsDto questionsDto = Mapper.mapToQuestionsDto(question);
+            questionsDto.setId(question.getId());
             result.add(questionsDto);
         }
-        return result;
+        Collections.shuffle(result);
+        return result.stream().limit(15).collect(Collectors.toList());
     }
 
     @Override
@@ -209,19 +220,29 @@ public class QuestionsServiceImpl implements QuestionsService {
     public List<QuestionsDto> getCNSQuestions() {
         List<QuestionsDto> list = new ArrayList<>();
         for(CNSQuestions question : map2.values()){
-            list.add(Mapper.mapCnsToQuestionsDto(question));
+            QuestionsDto questionsDto = Mapper.mapCnsToQuestionsDto(question);
+            questionsDto.setId(question.getId());
+            list.add(questionsDto);
         }
-        return list;
+        Collections.shuffle(list);
+        return list.stream().limit(30).collect(Collectors.toList());
     }
 
     @Override
     public List<QuestionsDto> getCNSQuestions(String topic) {
-        Set<CNSQuestions> list = cnsRepository.findByTopic(topic);
-        List<QuestionsDto> result = new ArrayList<>();
-        for(CNSQuestions questions : list){
-            result.add(Mapper.mapCnsToQuestionsDto(questions));
+        Set<CNSQuestions> list = new HashSet<>();
+        for(CNSQuestions question : map2.values()){
+            if(question.getTopic().equals(topic))
+                list.add(question);
         }
-        return result;
+        List<QuestionsDto> result = new ArrayList<>();
+        for(CNSQuestions question : list){
+            QuestionsDto questionsDto = Mapper.mapCnsToQuestionsDto(question);
+            questionsDto.setId(question.getId());
+            result.add(questionsDto);
+        }
+        Collections.shuffle(result);
+        return result.stream().limit(15).collect(Collectors.toList());
     }
 
     @Override
@@ -262,19 +283,29 @@ public class QuestionsServiceImpl implements QuestionsService {
     public List<QuestionsDto> getOOPSQuestions() {
         List<QuestionsDto> list = new ArrayList<>();
         for(OOPSQuestions questions : map3.values()){
-            list.add(Mapper.mapOOPSToQuestionsDto(questions));
+            QuestionsDto questionsDto = Mapper.mapOOPSToQuestionsDto(questions);
+            questionsDto.setId(questions.getId());
+            list.add(questionsDto);
         }
-        return list;
+        Collections.shuffle(list);
+        return list.stream().limit(30).collect(Collectors.toList());
     }
 
     @Override
     public List<QuestionsDto> getOOPSQuestions(String topic) {
-        Set<OOPSQuestions> list = oopsRepository.findByTopic(topic);
-        List<QuestionsDto> result = new ArrayList<>();
-        for(OOPSQuestions questions : list){
-            result.add(Mapper.mapOOPSToQuestionsDto(questions));
+        Set<OOPSQuestions> list = new HashSet<>();
+        for(OOPSQuestions question : map3.values()){
+            if(question.getTopic().equals(topic))
+                list.add(question);
         }
-        return result;
+        List<QuestionsDto> result = new ArrayList<>();
+        for(OOPSQuestions question : list){
+            QuestionsDto questionsDto = Mapper.mapOOPSToQuestionsDto(question);
+            questionsDto.setId(question.getId());
+            result.add(questionsDto);
+        }
+        Collections.shuffle(result);
+        return result.stream().limit(15).collect(Collectors.toList());
     }
 
     @Override
