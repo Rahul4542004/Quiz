@@ -8,6 +8,7 @@ import { Resources } from './components/Resources';
 import Main from './components/Main';
 import { Account } from './components/Account';
 import { Quiz } from './components/Quiz';
+import { Finish } from './components/Finish';
 // import Home from './components/Home';
 
 function App() {
@@ -23,6 +24,7 @@ function App() {
         <Route path="/resources" element={<Resources />}></Route>
         <Route path="/test" element={<Test />}></Route>
         <Route path="/test/:subject/:topic" element={<Quiz/>}></Route>
+        <Route path="/finish/:score/:totalScore" element={<Finish/>}></Route>
       </Routes>
     </BrowserRouter>
   );

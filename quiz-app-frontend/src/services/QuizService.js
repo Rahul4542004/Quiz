@@ -1,3 +1,4 @@
+import { responsiveFontSizes } from "@mui/material";
 import axios from "axios";
 const QUIZ_URL = "http://localhost:8095/api/questions";
 export const getOS = () => axios.get(QUIZ_URL+"/os");
@@ -15,3 +16,5 @@ export const isTakingTest = () => {
     const test = localStorage.getItem("test")
     return test !== null && test !== "null";
 }
+
+export const calculateScoreForOs = (responses) => axios.post(QUIZ_URL + "/os/submit",responses);

@@ -1,21 +1,22 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import { getCNS, getCNSByTopic, getDBMS, getDBMSByTopic, getOOPS, getOOPSByTopic, getOS, getOSByTopic, getTest, isTakingTest, saveTest } from '../services/QuizService';
-import { FormControl, FormControlLabel, RadioGroup, Typography, Radio, Button, Box } from '@mui/material';
+import { useNavigate, useParams } from 'react-router-dom';
+import { calculateScoreForOs, getCNS, getCNSByTopic, getDBMS, getDBMSByTopic, getOOPS, getOOPSByTopic, getOS, getOSByTopic, saveTest } from '../services/QuizService';
+import { FormControl, FormControlLabel, Typography,Checkbox, Button, Box } from '@mui/material';
 
 export const Quiz = () => {
     const { subject, topic } = useParams();
     const [idx, setIdx] = useState(JSON.parse(localStorage.getItem('currentQuizIdx')) || 0);
     const [currentData, setCurrentData] = useState([]);
-
+    const [selectedOption, setSelectedOption] = useState(null);
+    const navigate = useNavigate();
     useEffect(() => {
         const fetchQuestions = async () => {
             const storedData = JSON.parse(localStorage.getItem('currentQuizData'));
             const storedIdx = JSON.parse(localStorage.getItem('currentQuizIdx'));
-            
             if (storedData && storedIdx !== null && storedData.length > 0) {
                 setCurrentData(storedData);
                 setIdx(storedIdx);
+                setSelectedOption(storedData[storedIdx].option);
             } else {
                 try {
                     let response;
@@ -35,6 +36,7 @@ export const Quiz = () => {
                     localStorage.setItem('currentQuizData', JSON.stringify(data));
                     localStorage.setItem('currentQuizIdx', JSON.stringify(0));
                     setIdx(0);
+                    setSelectedOption(data[0].option);
                 } catch (err) {
                     console.error(err);
                 }
@@ -48,6 +50,12 @@ export const Quiz = () => {
         localStorage.setItem('currentQuizIdx', JSON.stringify(idx));
     }, [idx]);
 
+    useEffect(() => {
+        if (currentData.length > 0) {
+            setSelectedOption(currentData[idx].option);
+        }
+    }, [idx, currentData]);
+
     const handleNext = () => {
         if (idx < currentData.length - 1) {
             setIdx(idx + 1);
@@ -60,15 +68,44 @@ export const Quiz = () => {
         }
     };
 
+    const handleOptionChange = (e) => {
+        const selectedValue = e.target.value;
+        const updatedData = [...currentData];
+        if (selectedValue === selectedOption) {
+            setSelectedOption(null);
+            updatedData[idx].option = null;
+        } else {
+            setSelectedOption(selectedValue);
+            updatedData[idx].option = selectedValue;
+        }
+        setCurrentData(updatedData);
+        localStorage.setItem('currentQuizData', JSON.stringify(updatedData));
+    };
+
     if (currentData.length === 0) {
         return <Typography>Loading questions...</Typography>;
     }
-
+    function handleSubmit(e){
+        e.preventDefault();
+        localStorage.removeItem("test");
+        localStorage.removeItem("currentQuizData");
+        localStorage.removeItem("currentQuizIdx");
+        const responses = currentData.map(data => {
+            const response = {id : data.id,response : data.option};
+            return response;
+        })
+        let score = 0;
+        calculateScoreForOs(responses).then(response => {
+                score = response.data;
+                navigate(`/finish/${score}/${currentData.length}`);
+            }
+        )
+    }
     const question = currentData[idx];
     return (
         <>
             <Typography variant='h3' sx={{ textAlign: "center" }}>
-                {subject.toUpperCase()} {topic!=="null" && `(${topic.toUpperCase()})`}
+                {subject.toUpperCase()} {topic !== "null" && `(${topic.toUpperCase()})`}
             </Typography>
             <center>
                 <FormControl component="fieldset" sx={{ width: "800px", marginTop: "50px" }}>
@@ -78,16 +115,48 @@ export const Quiz = () => {
                     >
                         {idx + 1}. {question.description}
                     </Typography>
-                    <RadioGroup
-                        aria-label="quiz-options"
-                        name="quiz-options"
-                        sx={{ fontSize: "20px" }}
-                    >
-                        <FormControlLabel value="a" control={<Radio />} label={`A. ${question.option_a}`} />
-                        <FormControlLabel value="b" control={<Radio />} label={`B. ${question.option_b}`} />
-                        <FormControlLabel value="c" control={<Radio />} label={`C. ${question.option_c}`} />
-                        <FormControlLabel value="d" control={<Radio />} label={`D. ${question.option_d}`} />
-                    </RadioGroup>
+                    <Box sx = {{display : "flex", flexDirection : "column"}}>
+                        <FormControlLabel
+                            control={
+                                <Checkbox
+                                    checked={selectedOption === "a"}
+                                    onChange={handleOptionChange}
+                                    value="a"
+                                />
+                            }
+                            label={`A. ${question.option_a}`}
+                        />
+                        <FormControlLabel
+                            control={
+                                <Checkbox
+                                    checked={selectedOption === "b"}
+                                    onChange={handleOptionChange}
+                                    value="b"
+                                />
+                            }
+                            label={`B. ${question.option_b}`}
+                        />
+                        <FormControlLabel
+                            control={
+                                <Checkbox
+                                    checked={selectedOption === "c"}
+                                    onChange={handleOptionChange}
+                                    value="c"
+                                />
+                            }
+                            label={`C. ${question.option_c}`}
+                        />
+                        <FormControlLabel
+                            control={
+                                <Checkbox
+                                    checked={selectedOption === "d"}
+                                    onChange={handleOptionChange}
+                                    value="d"
+                                />
+                            }
+                            label={`D. ${question.option_d}`}
+                        />
+                    </Box>
                     <Box mt={2} sx={{ display: "flex", justifyContent: "space-between", marginTop: "40px" }}>
                         <Button
                             variant="contained"
@@ -106,13 +175,7 @@ export const Quiz = () => {
                             Next
                         </Button>
                     </Box>
-                    <Button onClick={(e) => {
-                        e.preventDefault();
-                        localStorage.removeItem("test");
-                        localStorage.removeItem("currentQuizData");
-                        localStorage.removeItem("currentQuizIdx");
-                        setCurrentData([]);
-                    }}>Finish test</Button>
+                    <Button onClick={handleSubmit}>Finish test</Button>
                 </FormControl>
             </center>
         </>

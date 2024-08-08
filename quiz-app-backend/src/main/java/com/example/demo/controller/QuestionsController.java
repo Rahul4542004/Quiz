@@ -33,8 +33,8 @@ public class QuestionsController {
         return ResponseEntity.ok(list);
     }
     @PostMapping("/os/submit")
-    public ResponseEntity<String> processOSsResponses(@RequestBody List<ResponseDto> responseDto){
-        String result = questionsService.processOSResponses(responseDto);
+    public ResponseEntity<Integer> processOSsResponses(@RequestBody List<ResponseDto> responseDto){
+        Integer result = questionsService.processOSResponses(responseDto);
         return ResponseEntity.ok(result);
     }
     @PostMapping("/dbms")
@@ -55,8 +55,8 @@ public class QuestionsController {
         return ResponseEntity.ok(list);
     }
     @PostMapping("/dbms/submit")
-    public ResponseEntity<String> processDBMSResponses(@RequestBody List<ResponseDto> responseDtos){
-        String message = questionsService.processDBMSResponses(responseDtos);
+    public ResponseEntity<Integer> processDBMSResponses(@RequestBody List<ResponseDto> responseDtos){
+        Integer message = questionsService.processDBMSResponses(responseDtos);
         return ResponseEntity.ok(message);
     }
     @PostMapping("/cns")
@@ -76,8 +76,8 @@ public class QuestionsController {
         return ResponseEntity.ok(list);
     }
     @PostMapping("/cns/submit")
-    public ResponseEntity<String> processCNSResponses(@RequestBody List<ResponseDto> responseDtos) {
-        String message = questionsService.processCNSResponses(responseDtos);
+    public ResponseEntity<Integer> processCNSResponses(@RequestBody List<ResponseDto> responseDtos) {
+        Integer message = questionsService.processCNSResponses(responseDtos);
         return ResponseEntity.ok(message);
     }
     @PostMapping("/oops")
@@ -97,8 +97,8 @@ public class QuestionsController {
         return ResponseEntity.ok(list);
     }
     @PostMapping("/oops/submit")
-    public ResponseEntity<String> processOOPSResponses(@RequestBody List<ResponseDto> responseDtos){
-        String message = questionsService.processOOPSResponses(responseDtos);
+    public ResponseEntity<Integer> processOOPSResponses(@RequestBody List<ResponseDto> responseDtos){
+        Integer message = questionsService.processOOPSResponses(responseDtos);
         return ResponseEntity.ok(message);
     }
 }

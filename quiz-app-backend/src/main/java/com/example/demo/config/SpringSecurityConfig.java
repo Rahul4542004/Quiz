@@ -33,7 +33,8 @@ public class SpringSecurityConfig {
         httpSecurity.csrf((csrf) -> csrf.disable()).
                 cors(Customizer.withDefaults()).
                 authorizeHttpRequests((authorize) -> {
-                    authorize.requestMatchers("/api/auth/**","api/questions/**").permitAll();
+                    authorize.requestMatchers("/api/auth/**").permitAll();
+                    authorize.requestMatchers("/api/questions/**").hasAnyRole("USER","ADMIN");
                     authorize.requestMatchers(HttpMethod.OPTIONS,"/**").permitAll();
                     authorize.anyRequest().authenticated();
                 }).httpBasic(Customizer.withDefaults());

@@ -107,14 +107,14 @@ public class QuestionsServiceImpl implements QuestionsService {
         return correctAnswer.getOptions().equals(responseDto.getResponse());
     }
     @Override
-    public String processOSResponses(List<ResponseDto> list) {
+    public Integer processOSResponses(List<ResponseDto> list) {
 
         int score = list.parallelStream()
                 .filter(responseDto -> processResponse(responseDto))
                 .mapToInt(e -> 1)
                 .sum();
 
-        return "Your score is " + score + "/" + list.size();
+        return score;
     }
 
 
@@ -189,12 +189,12 @@ public class QuestionsServiceImpl implements QuestionsService {
     }
 
     @Override
-    public String processDBMSResponses(List<ResponseDto> responseDtos) {
+    public Integer processDBMSResponses(List<ResponseDto> responseDtos) {
         int score = responseDtos.parallelStream()
                 .filter(this::processDBMSResponse)
                 .mapToInt(e -> 1)
                 .sum();
-        return "Your score is " + score + "/" + responseDtos.size();
+        return score;
     }
 
     @Override
@@ -246,12 +246,12 @@ public class QuestionsServiceImpl implements QuestionsService {
     }
 
     @Override
-    public String processCNSResponses(List<ResponseDto> responseDtos) {
+    public Integer processCNSResponses(List<ResponseDto> responseDtos) {
         int score = responseDtos.parallelStream()
                 .filter(this::processCNSResponse)
                 .mapToInt(e -> 1)
                 .sum();
-        return "Your score is " + score + "/" + responseDtos.size();
+        return score;
     }
 
     private Boolean processCNSResponse(ResponseDto responseDto){
@@ -309,12 +309,12 @@ public class QuestionsServiceImpl implements QuestionsService {
     }
 
     @Override
-    public String processOOPSResponses(List<ResponseDto> list) {
+    public Integer processOOPSResponses(List<ResponseDto> list) {
         int score = list.parallelStream()
                 .filter(this::processOOPSResponse)
                 .mapToInt(e -> 1)
                 .sum();
-        return "Your score is " + score + "/" + list.size();
+        return score;
     }
     private Boolean processOOPSResponse(ResponseDto responseDto){
         Long id = responseDto.getId();
