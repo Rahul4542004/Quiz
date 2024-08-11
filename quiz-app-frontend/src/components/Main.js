@@ -8,7 +8,7 @@ import { styled } from "@mui/material/styles";
 import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import { getToastValue, getUser, isUserLoggedIn, setToastValue } from "../services/AuthService";
-
+import "react-toastify/dist/ReactToastify.css";
 const StyledCard = styled(Card)({
   maxWidth: 400,
   display: "flex",
