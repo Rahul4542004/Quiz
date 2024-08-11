@@ -13,7 +13,7 @@ import MenuItem from "@mui/material/MenuItem";
 import { useNavigate } from "react-router-dom";
 import { isUserLoggedIn, logout } from "../services/AuthService";
 
-const settings = ["Profile", "Account", "Dashboard", "Logout"];
+const settings = ["Profile", "Account", "Home", "Logout"];
 
 function Header() {
   const [anchorElUser, setAnchorElUser] = React.useState(null);
@@ -39,7 +39,7 @@ function Header() {
     else if(setting === "Account"){
       navigate("/account")
     }
-    else if(setting === "Dashboard"){
+    else if(setting === "Home"){
       navigate("/");
     }
     else {

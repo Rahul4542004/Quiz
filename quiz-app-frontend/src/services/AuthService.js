@@ -21,3 +21,9 @@ axios.interceptors.request.use(function (config) {
     // Do something with request error
     return Promise.reject(error);
   });
+  export const updateInformation = (user) => axios.post(AUTH_URL + "/update/information",user);
+export const getToastValue = () => {
+  const value = localStorage.getItem("toast");
+  return value!==null;
+}
+export const setToastValue = (val) => localStorage.setItem("toast",val);

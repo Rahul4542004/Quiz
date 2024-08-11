@@ -14,7 +14,7 @@ import {
 import { useNavigate } from "react-router-dom";
 import { register } from "../services/AuthService";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
-
+import { ToastContainer,toast } from "react-toastify";
 export const Register = () => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -32,8 +32,8 @@ export const Register = () => {
   const emailRegex = /^[a-zA-Z0-9._%+-]+@gmail\.com$/;
   const passwordRegex = /^(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,}$/;
   const phoneRegex = /^\d{10}$/;
-  const firstNameRegex = /^[A-Za-z]{1,20}$/;
-  const lastNameRegex = /^[A-Za-z]{1,20}$/;
+  const firstNameRegex = /^[A-Za-z\s]{1,20}$/;
+  const lastNameRegex = /^[A-Za-z\s]{1,20}$/;
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -79,7 +79,8 @@ export const Register = () => {
     const user = { firstName, lastName, username, email, password, phoneNo };
     register(user)
       .then((response) => {
-        navigate("/");
+        toast.success("User successfully registered")
+        setTimeout(() => navigate('/'),2000);
       })
       .catch((err) => {
         if (err.response) {
@@ -272,6 +273,17 @@ export const Register = () => {
           </Button>
         </DialogActions>
       </Dialog>
+      <ToastContainer 
+        autoClose={2000} 
+        position="top-right"
+        hideProgressBar={false}
+        newestOnTop
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover 
+      />
     </form>
   );
 };
