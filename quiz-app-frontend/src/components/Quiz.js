@@ -21,13 +21,13 @@ export const Quiz = () => {
                 try {
                     let response;
                     if (subject === 'os') {
-                        response = topic === "null" ? await getOS() : await getOSByTopic(topic);
+                        response = topic === "main" ? await getOS() : await getOSByTopic(topic);
                     } else if (subject === 'cns') {
-                        response = topic === "null" ? await getCNS() : await getCNSByTopic(topic);
+                        response = topic === "main" ? await getCNS() : await getCNSByTopic(topic);
                     } else if (subject === 'dbms') {
-                        response = topic === "null" ? await getDBMS() : await getDBMSByTopic(topic);
+                        response = topic === "main" ? await getDBMS() : await getDBMSByTopic(topic);
                     } else if (subject === 'oops') {
-                        response = topic === "null" ? await getOOPS() : await getOOPSByTopic(topic);
+                        response = topic === "main" ? await getOOPS() : await getOOPSByTopic(topic);
                     }
 
                     const data = response.data;
@@ -49,7 +49,6 @@ export const Quiz = () => {
     useEffect(() => {
         localStorage.setItem('currentQuizIdx', JSON.stringify(idx));
     }, [idx]);
-
     useEffect(() => {
         if (currentData.length > 0) {
             setSelectedOption(currentData[idx].option);
@@ -111,11 +110,11 @@ export const Quiz = () => {
                 <FormControl component="fieldset" sx={{ width: "800px", marginTop: "50px" }}>
                     <Typography
                         variant="h5"
-                        sx={{ fontSize: "28px", textAlign: "left", mb: 2 }}
+                        sx={{ fontSize: "28px", textAlign: "left", mb: 2 ,color : "black"}}
                     >
                         {idx + 1}. {question.description}
                     </Typography>
-                    <Box sx = {{display : "flex", flexDirection : "column"}}>
+                    <Box sx = {{display : "flex", flexDirection : "column",color : "black"}}>
                         <FormControlLabel
                             control={
                                 <Checkbox

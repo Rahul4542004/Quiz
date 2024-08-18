@@ -39,7 +39,16 @@ function ImageSlider() {
             <img src={image.src} alt={`Slide ${index + 1}`} />
             <div className="content">
               <div className="button">
-                <button onClick={() => navigate(image.link)} >TAKE A TEST</button>
+                <button onClick={() => {
+                  if(image.src === 'dbms1.jpg')
+                    navigate(`/test/${"dbms"}`)
+                  else if(image.src === 'os2.jpg')
+                    navigate(`/test/${"os"}`);
+                  else if(image.src === "cns2.jpg")
+                    navigate(`/test/${"cns"}`);
+                  else
+                    navigate(`/test/${"oops"}`)
+                }} >TAKE A TEST</button>
               </div>
             </div>
           </div>

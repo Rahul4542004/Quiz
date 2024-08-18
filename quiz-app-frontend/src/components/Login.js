@@ -139,7 +139,7 @@ export const Login = () => {
           </Button>
           <Typography
             variant="h6"
-            sx={{ marginTop: "10px", marginBottom: "30px" }}
+            sx={{ marginTop: "10px", marginBottom: "30px",color : "black" }}
           >
             Don't have an account?{" "}
             <Link

@@ -7,6 +7,7 @@ import {
   Button,
   Box,
 } from "@mui/material";
+import { useNavigate, useParams } from "react-router-dom";
 
 export default function Instructions() {
   const [isChecked, setIsChecked] = useState(false);
@@ -14,13 +15,38 @@ export default function Instructions() {
   const handleCheckboxChange = (event) => {
     setIsChecked(event.target.checked);
   };
-
+  let {subject,topic} = useParams();
+  const temp = subject;
+  if(subject === "os"){
+    subject = "Operating Systems"
+  }
+  else if(subject === "dbms"){
+    subject = "Database Management System"
+  }
+  else if(subject === "cns"){
+    subject = "Computer Network And Security"
+  }
+  else{
+    subject = "Object Oriented Programming"
+  }
+  const formatTopic = (topic) => {
+    return topic
+      .split("-")
+      .map((part) => part.toUpperCase())
+      .join(" ");
+  };
+  const navigate = useNavigate();
+  const handleClick = () => {
+    navigate(`/test/${temp}/${topic}`)
+  }
   return (
     <Container>
       <Card sx={{ padding: 3, marginTop: 6 }}>
+        <center>
         <Typography variant="h4" gutterBottom>
-          Operating System - Mock Test I
+          {subject.toUpperCase()}  {topic === "main" ? "" : " - " + formatTopic(topic)}
         </Typography>
+        </center>
         <Typography variant="body1" gutterBottom>
           <strong>DISCLAIMER for INTELLIQUEST Test</strong>
         </Typography>
@@ -33,7 +59,7 @@ export default function Instructions() {
           2. The test is of 5 minutes duration.
         </Typography>
         <Typography variant="body2" gutterBottom>
-          3. The mock test consists of 15 questions. The maximum marks are 15.
+          3. The mock test consists of {topic==="main" ? "30" : "15"} questions. The maximum marks are 15.
         </Typography>
 
         <Typography variant="body1" gutterBottom>
@@ -77,7 +103,7 @@ export default function Instructions() {
           </Typography>
         </Box>
         <Box sx={{ display: "flex", justifyContent: "center", marginTop: 3 }}>
-          <Button variant="contained" color="primary" disabled={!isChecked}>
+          <Button variant="contained" color="primary" disabled={!isChecked} onClick={handleClick}>
             Start test
           </Button>
         </Box>

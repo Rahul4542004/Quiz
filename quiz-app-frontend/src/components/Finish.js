@@ -5,6 +5,6 @@ import { useParams } from 'react-router-dom'
 export const Finish = () => {
   const {score,totalScore} = useParams();
   return (
-    <div>Your score is {score} / {totalScore}</div>
+    <div style={{color : "black"}}>Your score is {score} / {totalScore}</div>
   )
 }
