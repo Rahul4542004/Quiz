@@ -15,96 +15,128 @@ export default function Instructions() {
   const handleCheckboxChange = (event) => {
     setIsChecked(event.target.checked);
   };
-  let {subject,topic} = useParams();
+
+  let { subject, topic } = useParams();
   const temp = subject;
-  if(subject === "os"){
-    subject = "Operating Systems"
-  }
-  else if(subject === "dbms"){
-    subject = "Database Management System"
-  }
-  else if(subject === "cns"){
-    subject = "Computer Network And Security"
-  }
-  else{
-    subject = "Object Oriented Programming"
-  }
+  const subjectMap = {
+    os: "Operating Systems",
+    dbms: "Database Management System",
+    cns: "Computer Network and Security",
+    default: "Object Oriented Programming"
+  };
+  subject = subjectMap[subject] || subjectMap.default;
   const formatTopic = (topic) => {
     return topic
       .split("-")
-      .map((part) => part.toUpperCase())
+      .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
       .join(" ");
   };
+
   const navigate = useNavigate();
   const handleClick = () => {
-    navigate(`/test/${temp}/${topic}`)
-  }
+    navigate(`/test/${temp}/${topic}`);
+  };
+
   return (
-    <Container>
-      <Card sx={{ padding: 3, marginTop: 6 }}>
+    <Container
+      maxWidth="false"
+      disableGutters
+      sx={{
+        height: '100vh',
+        padding: 0,
+        margin: 0,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center'
+      }}
+    >
+      <Card
+        sx={{
+          padding: 4,
+          width: '100%',
+          maxWidth: '900px',
+          backgroundColor: '#1e1e1e',
+          color: '#ffffff',
+          borderRadius: '8px',
+          boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.2)',
+          overflow: 'auto' // Ensure content is scrollable if needed
+        }}
+      >
         <center>
-        <Typography variant="h4" gutterBottom>
-          {subject.toUpperCase()}  {topic === "main" ? "" : " - " + formatTopic(topic)}
-        </Typography>
+          <Typography
+            variant="h4"
+            gutterBottom
+            sx={{ color: '#ffeb3b' }}
+          >
+            {subject.toUpperCase()} {topic === "main" ? "" : " - " + formatTopic(topic)}
+          </Typography>
         </center>
         <Typography variant="body1" gutterBottom>
-          <strong>DISCLAIMER for INTELLIQUEST Test</strong>
+          <strong>Disclaimer</strong>
         </Typography>
-        <Typography variant="body2" gutterBottom>
-          1. The paper pattern of our Intelliquest Test is a little different
-          from the other websites pattern as we want all the aspirants to stay
-          one step ahead in terms of preparation.
+        <Typography variant="body2" paragraph>
+          1. The paper pattern of our Intelliquest Test differs from other websites to ensure aspirants stay ahead in their preparation.
         </Typography>
-        <Typography variant="body2" gutterBottom>
-          2. The test is of 5 minutes duration.
+        <Typography variant="body2" paragraph>
+          2. The test duration is 5 minutes.
         </Typography>
-        <Typography variant="body2" gutterBottom>
-          3. The mock test consists of {topic==="main" ? "30" : "15"} questions. The maximum marks are 15.
+        <Typography variant="body2" paragraph>
+          3. The mock test includes {topic === "main" ? "30" : "15"} questions, with a maximum score of 15 marks.
         </Typography>
-
         <Typography variant="body1" gutterBottom>
           <strong>Types of Tests in Intelliquest</strong>
         </Typography>
-        <Typography variant="body2" gutterBottom>
-          1. It consists of four core Computer Science Subjects <br /> (i)
-          Operating System <br /> (ii) DataBase Management System
-          <br /> (iii) Computer Networks <br /> (iv) Oject Oriented Programming
+        <Typography variant="body2" paragraph>
+          1. Tests cover four core Computer Science subjects:
+          <Box component="ul" sx={{ paddingLeft: '20px', listStyleType: 'none' }}>
+            <Box component="li" sx={{ marginBottom: '4px' }}>Operating Systems</Box>
+            <Box component="li" sx={{ marginBottom: '4px' }}>Database Management System</Box>
+            <Box component="li" sx={{ marginBottom: '4px' }}>Computer Networks</Box>
+            <Box component="li">Object Oriented Programming</Box>
+          </Box>
         </Typography>
-        <Typography variant="body2" gutterBottom>
-          2. The paper consists of 90 questions. The maximum marks are 300.
+        <Typography variant="body2" paragraph>
+          2. Each Subject is divided into 4 subcategories, with separate tests for each.
         </Typography>
-        <Typography variant="body2" gutterBottom>
-          3.Each Subject is divided into 4 sub Categories . Each Sub Category
-          consists of separate test which can be taken by user.
-        </Typography>
-        <Typography variant="body2" gutterBottom>
-          4. There is a concept of Overall Test , which test all concepts of
-          that subject.
+        <Typography variant="body2" paragraph>
+          3. An overall test evaluates all concepts of the subject.
         </Typography>
         <Box component="div" sx={{ marginLeft: 2 }}>
-          <Typography variant="body2" gutterBottom>
-            <strong>Preparation : </strong> There is a resource provided to each
-            of the user at start of the website.
+          <Typography variant="body2" paragraph>
+            <strong>Preparation:</strong> Resources are provided at the start of the website.
           </Typography>
-          <Typography variant="body2" gutterBottom>
-            <strong>Result : </strong> There is a result page at end of each
-            test which evaluates their respective performance.
+          <Typography variant="body2" paragraph>
+            <strong>Result:</strong> Results are evaluated on a dedicated page at the end of each test.
           </Typography>
         </Box>
-        <Typography variant="body2" gutterBottom>
-         5. Please be thorough with subject before attempting the test.
+        <Typography variant="body2" paragraph>
+          4. Ensure you are well-prepared before attempting the test.
         </Typography>
         <Box sx={{ display: "flex", alignItems: "center", marginTop: 2 }}>
-          <Checkbox checked={isChecked} onChange={handleCheckboxChange} />
-          <Typography variant="body2">
-            I have read the instructions and I understand that if I escape the
-            full screen mode, my test will be auto-submitted. Check the box on
-            the left to start the test.
+          <Checkbox checked={isChecked} onChange={handleCheckboxChange} sx={{ color: '#ffeb3b' }} />
+          <Typography variant="body2" sx={{ color: '#ffffff' }}>
+            I have read and understood the instructions. If I exit full screen mode, my test will be auto-submitted. Check the box to start the test.
           </Typography>
         </Box>
         <Box sx={{ display: "flex", justifyContent: "center", marginTop: 3 }}>
-          <Button variant="contained" color="primary" disabled={!isChecked} onClick={handleClick}>
-            Start test
+          <Button
+            variant="contained"
+            disabled={!isChecked}
+            onClick={handleClick}
+            sx={{
+              backgroundColor: "#ffeb3b",
+              color: "#000000",
+              '&:hover': {
+                backgroundColor: '#f2d106',
+              },
+              fontWeight: 'bold',
+              padding: '12px 24px',
+              borderRadius: '4px',
+              fontSize: '16px',
+              minWidth: '120px',
+            }}
+          >
+            Start Test
           </Button>
         </Box>
       </Card>
