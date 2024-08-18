@@ -12,6 +12,7 @@ import { Subject } from "./components/Subject";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useEffect } from "react";
+import Instructions from "./components/Instructions";
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
         <Route path="/test/:subject/:topic" element={<Quiz />} />
         <Route path="/finish/:score/:totalScore" element={<Finish />} />
         <Route path="/test/:subject" element={<Subject />} />
+        <Route path="/test/:subject/instructions" element={<Instructions />} />
       </Routes>
       <ToastContainer 
         autoClose={2000} 
