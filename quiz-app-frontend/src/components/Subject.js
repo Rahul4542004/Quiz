@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { Paper } from "@mui/material";
-import { useParams } from "react-router-dom";
+import { Paper,Button } from "@mui/material";
+import { useNavigate, useParams } from "react-router-dom";
 
 export const Subject = () => {
   const { subject } = useParams();
@@ -8,7 +8,7 @@ export const Subject = () => {
   let [topic2, setTopic2] = useState("");
   let [topic3, setTopic3] = useState("");
   let [topic4, setTopic4] = useState("");
-
+  const navigate = useNavigate();
   useEffect(() => {
     if (subject === "os") {
       setTopic1("os-basics");
@@ -45,6 +45,7 @@ export const Subject = () => {
   return (
     <div className="grid-container" style={{ background: "linear-gradient(111.4deg, rgb(2, 255, 4) 18.4%, rgb(0, 232, 237) 100.2%)" }}>
       <div className="grid-item top-left">
+        <Button disableRipple onClick={() => navigate(`/test/instructions/${subject}/${topic1}`)}>
         <Paper
           elevation={14}
           sx={{
@@ -66,9 +67,11 @@ export const Subject = () => {
           <h1 style={{ color: "white" }}>{messages[0]}</h1>
           {/* {messages[0]} */}
         </Paper>
+        </Button>
       </div>
 
       <div className="grid-item bottom-left">
+      <Button disableRipple onClick={() => navigate(`/test/instructions/${subject}/${topic2}`)}>
         <Paper
           elevation={14}
           sx={{
@@ -90,10 +93,11 @@ export const Subject = () => {
         >
           <h1 style={{ color: "white", textAlign: "center" }}>{messages[1]}</h1>
         </Paper>
+        </Button>
       </div>
     
       <div className="grid-item center">
-    
+      <Button disableRipple onClick={() => navigate(`/test/instructions/${subject}/${"main"}`)}>
         <Paper
           elevation={14}
           sx={{
@@ -111,9 +115,11 @@ export const Subject = () => {
           <h1 style={{ color: "white", textAlign: "center" }}>OVERALL QUIZ</h1>
           {/* {messages[2]} */}
         </Paper>
+        </Button>
       </div>
 
       <div className="grid-item top-right">
+      <Button disableRipple onClick={() => navigate(`/test/instructions/${subject}/${topic3}`)}>
         <Paper
           elevation={14}
           sx={{
@@ -134,9 +140,11 @@ export const Subject = () => {
           <h1 style={{ color: "white" }}> {messages[2]}</h1>
           {/* {messages[3]} */}
         </Paper>
+        </Button>
       </div>
 
       <div className="grid-item bottom-right">
+      <Button disableRipple onClick={() => navigate(`/test/instructions/${subject}/${topic4}`)}>
         <Paper
           elevation={14}
           sx={{
@@ -158,6 +166,7 @@ export const Subject = () => {
           <h1 style={{ color: "white" }}>{messages[3]}</h1>
           {/* {messages[4]} */}
         </Paper>
+        </Button>
       </div>
     </div>
   );

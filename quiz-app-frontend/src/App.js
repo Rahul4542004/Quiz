@@ -28,7 +28,7 @@ function App() {
         <Route path="/test/:subject/:topic" element={<Quiz />} />
         <Route path="/finish/:score/:totalScore" element={<Finish />} />
         <Route path="/test/:subject" element={<Subject />} />
-        <Route path="/test/:subject/instructions" element={<Instructions />} />
+        <Route path="/test/instructions/:subject/:topic" element={<Instructions />} />
       </Routes>
       <ToastContainer 
         autoClose={2000} 
@@ -41,6 +41,7 @@ function App() {
         draggable
         pauseOnHover 
       />
+
     </BrowserRouter>
   );
 }

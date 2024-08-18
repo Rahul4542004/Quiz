@@ -241,7 +241,7 @@ export const Register = () => {
         </Button>
         <Typography
           variant="h6"
-          sx={{ marginTop: "30px", marginBottom: "30px" }}
+          sx={{ marginTop: "30px", marginBottom: "30px",color : "black" }}
         >
           Have an account?{" "}
           <Link
