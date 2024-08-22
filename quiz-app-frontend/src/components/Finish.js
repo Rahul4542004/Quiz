@@ -73,9 +73,9 @@ export const Finish = () => {
               value={percentage}
               text={`${Math.round(percentage)}%`}
               styles={buildStyles({
-                pathColor: '#ffeb3b', // Yellow color for the meter
-                textColor: '#ffffff', // White color for the text
-                trailColor: '#424242', // Darker gray for the background trail
+                pathColor: '#ffeb3b', 
+                textColor: '#ffffff', 
+                trailColor: '#424242',
                 textSize: '1.5rem',
               })}
             />

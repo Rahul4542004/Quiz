@@ -20,6 +20,7 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+
 const drawerWidth = 240;
 
 export const Account = () => {
@@ -66,34 +67,19 @@ export const Account = () => {
 
   const navigator = useNavigate();
 
-  function updateInfo() {
-    const isValidFirstName = handleValidation("firstName", firstName);
-    const isValidLastName = handleValidation("lastName", lastName);
-    const isValidEmail = handleValidation("email", email);
-    const isValidPhoneNo = handleValidation("phoneNo", phoneNo);
-    const isValidInstitution = handleValidation("institution", institution);
+  function updateInfo(field, value) {
+    const isValid = handleValidation(field, value);
 
-    if (
-      isValidFirstName &&
-      isValidLastName &&
-      isValidEmail &&
-      isValidPhoneNo &&
-      isValidInstitution
-    ) {
-      const currentUser = {
-        firstName,
-        lastName,
-        email,
-        phoneNo,
-        gender,
-        dob: birthday ? birthday.format("YYYY-MM-DD") : "",
-        institution,
-        username: user.username,
+    if (isValid) {
+      const updatedUser = {
+        ...user,
+        [field]: value,
+        dob: birthday ? birthday.format("YYYY-MM-DD") : user.dob,
       };
 
-      setUser(currentUser);
-      saveUser(currentUser);
-      updateInformation(currentUser)
+      setUser(updatedUser);
+      saveUser(updatedUser);
+      updateInformation(updatedUser)
         .then((response) => {
           if (response.data !== "No changes detected") {
             toast.success(response.data);
@@ -103,8 +89,6 @@ export const Account = () => {
         .catch((err) => {
           toast.error("An error occurred while updating information.");
         });
-    } else {
-      toast.error("Please fix the validation errors before saving.");
     }
   }
 
@@ -151,8 +135,9 @@ export const Account = () => {
 
   const handleSave = (field, originalValue, updatedValue) => {
     if (handleValidation(field, updatedValue)) {
-      updateInfo();
+      updateInfo(field, updatedValue);
     } else {
+      toast.error("Please fix the validation errors before saving.");
       switch (field) {
         case "firstName":
           setFirstName(originalValue);
@@ -203,7 +188,7 @@ export const Account = () => {
           </div>
         </Toolbar>
       </AppBar>
-
+    
       <Paper elevation={3} style={{ padding: "1rem", marginBottom: "1rem" }}>
         <Typography
           sx={{ fontWeight: "bold", marginBottom: "20px" }}
@@ -252,7 +237,14 @@ export const Account = () => {
               <Grid item xs={6} style={{ textAlign: "right" }}>
                 <Button
                   onClick={() => {
-                    handleSave("firstName", user.firstName, firstName);
+                    if (editOption.firstName) {
+                      handleSave("firstName", user.firstName, firstName);
+                    } else {
+                      setEditOption(prevState => ({
+                        ...prevState,
+                        firstName: !prevState.firstName
+                      }));
+                    }
                   }}
                   variant="text"
                   startIcon={!editOption.firstName ? <Edit /> : <Save />}
@@ -303,7 +295,14 @@ export const Account = () => {
               <Grid item xs={6} style={{ textAlign: "right" }}>
                 <Button
                   onClick={() => {
-                    handleSave("lastName", user.lastName, lastName);
+                    if (editOption.lastName) {
+                      handleSave("lastName", user.lastName, lastName);
+                    } else {
+                      setEditOption(prevState => ({
+                        ...prevState,
+                        lastName: !prevState.lastName
+                      }));
+                    }
                   }}
                   variant="text"
                   startIcon={!editOption.lastName ? <Edit /> : <Save />}
@@ -354,7 +353,14 @@ export const Account = () => {
               <Grid item xs={6} style={{ textAlign: "right" }}>
                 <Button
                   onClick={() => {
-                    handleSave("email", user.email, email);
+                    if (editOption.email) {
+                      handleSave("email", user.email, email);
+                    } else {
+                      setEditOption(prevState => ({
+                        ...prevState,
+                        email: !prevState.email
+                      }));
+                    }
                   }}
                   variant="text"
                   startIcon={!editOption.email ? <Edit /> : <Save />}
@@ -366,13 +372,13 @@ export const Account = () => {
             </Grid>
           </Grid>
 
-          {/* Phone No */}
+          {/* Phone Number */}
           <Grid item xs={12}>
             <Grid container alignItems="center" spacing={2}>
               {!editOption.phoneNo ? (
                 <Grid item xs={6}>
                   <Typography variant="body1" color="textSecondary">
-                    <strong>Phone No:</strong> {user ? user.phoneNo : ""}
+                    <strong>Phone Number:</strong> {user ? user.phoneNo : ""}
                   </Typography>
                 </Grid>
               ) : (
@@ -381,7 +387,7 @@ export const Account = () => {
                     variant="body1"
                     sx={{ display: "flex", alignItems: "center" }}
                   >
-                    <strong>Phone No:</strong>{" "}
+                    <strong>Phone Number:</strong>{" "}
                     <TextField
                       autoFocus
                       sx={{
@@ -405,7 +411,14 @@ export const Account = () => {
               <Grid item xs={6} style={{ textAlign: "right" }}>
                 <Button
                   onClick={() => {
-                    handleSave("phoneNo", user.phoneNo, phoneNo);
+                    if (editOption.phoneNo) {
+                      handleSave("phoneNo", user.phoneNo, phoneNo);
+                    } else {
+                      setEditOption(prevState => ({
+                        ...prevState,
+                        phoneNo: !prevState.phoneNo
+                      }));
+                    }
                   }}
                   variant="text"
                   startIcon={!editOption.phoneNo ? <Edit /> : <Save />}
@@ -420,32 +433,42 @@ export const Account = () => {
           {/* Gender */}
           <Grid item xs={12}>
             <Grid container alignItems="center" spacing={2}>
-              <Grid item xs={6}>
-                <Typography variant="body1">
-                  <strong>Gender:</strong>
-                </Typography>
-                <Select
-                  value={gender}
-                  onChange={(e) => setGender(e.target.value)}
-                  disabled={!editOption.gender}
-                >
-                  <MenuItem value="Male">Male</MenuItem>
-                  <MenuItem value="Female">Female</MenuItem>
-                  <MenuItem value="Other">Other</MenuItem>
-                </Select>
-              </Grid>
+              {!editOption.gender ? (
+                <Grid item xs={6}>
+                  <Typography variant="body1" color="textSecondary">
+                    <strong>Gender:</strong> {user ? user.gender : ""}
+                  </Typography>
+                </Grid>
+              ) : (
+                <Grid item xs={6}>
+                  <Typography
+                    variant="body1"
+                    sx={{ display: "flex", alignItems: "center" }}
+                  >
+                    <strong>Gender:</strong>{" "}
+                    <Select
+                      autoFocus
+                      sx={{ marginLeft: "5px", width: "300px" }}
+                      value={gender}
+                      onChange={(e) => setGender(e.target.value)}
+                    >
+                      <MenuItem value="Male">Male</MenuItem>
+                      <MenuItem value="Female">Female</MenuItem>
+                      <MenuItem value="Other">Other</MenuItem>
+                    </Select>
+                  </Typography>
+                </Grid>
+              )}
               <Grid item xs={6} style={{ textAlign: "right" }}>
                 <Button
                   onClick={() => {
                     if (editOption.gender) {
-                      handleSave("gender", user.gender, gender);
+                      updateInfo("gender", gender);
                     }
-                    else{
-                      setEditOption((prevState) => ({
+                      setEditOption(prevState => ({
                         ...prevState,
-                        gender: !prevState.gender,
+                        gender: !prevState.gender
                       }));
-                    }
                   }}
                   variant="text"
                   startIcon={!editOption.gender ? <Edit /> : <Save />}
@@ -460,30 +483,39 @@ export const Account = () => {
           {/* Birthday */}
           <Grid item xs={12}>
             <Grid container alignItems="center" spacing={2}>
-              <Grid item xs={6}>
-                <Typography variant="body1">
-                  <strong>Birthday:</strong>
-                </Typography>
-                <LocalizationProvider dateAdapter={AdapterDayjs}>
-                  <DatePicker
-                    value={birthday}
-                    onChange={(newDate) => setBirthday(newDate)}
-                    disabled={!editOption.birthday}
-                    renderInput={(params) => <TextField {...params} />}
-                  />
-                </LocalizationProvider>
-              </Grid>
+              {!editOption.birthday ? (
+                <Grid item xs={6}>
+                  <Typography variant="body1" color="textSecondary">
+                    <strong>Birthday:</strong>{" "}
+                    {user ? dayjs(user.dob).format("YYYY-MM-DD") : ""}
+                  </Typography>
+                </Grid>
+              ) : (
+                <Grid item xs={6}>
+                  <Typography
+                    variant="body1"
+                    sx={{ display: "flex", alignItems: "center" }}
+                  >
+                    <strong>Birthday:</strong>{" "}
+                    <LocalizationProvider dateAdapter={AdapterDayjs}>
+                      <DatePicker
+                        value={birthday}
+                        onChange={(newValue) => setBirthday(newValue)}
+                      />
+                    </LocalizationProvider>
+                  </Typography>
+                </Grid>
+              )}
               <Grid item xs={6} style={{ textAlign: "right" }}>
                 <Button
                   onClick={() => {
-                    if(editOption.birthday)
-                      handleSave("birthday",user.dob,birthday);
-                    else{
-                      setEditOption((prevState) => ({
+                    if (editOption.birthday) {
+                      updateInfo("dob", birthday.format("YYYY-MM-DD"));
+                    } 
+                      setEditOption(prevState => ({
                         ...prevState,
-                        birthday: !prevState.birthday,
+                        birthday: !prevState.birthday
                       }));
-                    }
                   }}
                   variant="text"
                   startIcon={!editOption.birthday ? <Edit /> : <Save />}
@@ -534,7 +566,14 @@ export const Account = () => {
               <Grid item xs={6} style={{ textAlign: "right" }}>
                 <Button
                   onClick={() => {
-                    handleSave("institution", user.institution, institution);
+                    if (editOption.institution) {
+                      handleSave("institution", user.institution, institution);
+                    } else {
+                      setEditOption(prevState => ({
+                        ...prevState,
+                        institution: !prevState.institution
+                      }));
+                    }
                   }}
                   variant="text"
                   startIcon={!editOption.institution ? <Edit /> : <Save />}
@@ -547,17 +586,17 @@ export const Account = () => {
           </Grid>
         </Grid>
       </Paper>
-      <ToastContainer 
-        autoClose={2000} 
-        position="top-right"
-        hideProgressBar={false}
-        newestOnTop
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover 
-      />
+<ToastContainer 
+  autoClose={2000} 
+  position="top-right"
+  hideProgressBar={false}
+  newestOnTop
+  closeOnClick
+  rtl={false}
+  pauseOnFocusLoss
+  draggable
+  pauseOnHover 
+/>
     </main>
   );
 };

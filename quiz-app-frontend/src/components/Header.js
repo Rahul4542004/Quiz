@@ -1,4 +1,3 @@
-import * as React from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
@@ -11,19 +10,35 @@ import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import { useNavigate } from "react-router-dom";
-import { isUserLoggedIn, logout } from "../services/AuthService";
+import { getUser, isUserLoggedIn, logout } from "../services/AuthService";
+import { useEffect, useState } from "react";
 
-const settings = ["Profile", "Account", "Home", "Logout"];
+const settings = ["Home", "Account", "Logout"];
+const generateAvatars = () => {
+  const avatars = [];
+  const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+  for (let i = 0; i < letters.length; i++) {
+    avatars.push({
+      letter: letters[i],
+      src: "",
+      color: "orange"
+    });
+  }
+  return avatars;
+};
+const avatars = generateAvatars();
 
 function Header() {
-  const [anchorElUser, setAnchorElUser] = React.useState(null);
+  const [anchorElUser, setAnchorElUser] = useState(null);
   const navigate = useNavigate();
 
   const handleOpenUserMenu = (event) => {
+    console.log("Opening user menu");
     setAnchorElUser(event.currentTarget);
   };
 
   const handleCloseUserMenu = () => {
+    console.log("Closing user menu");
     setAnchorElUser(null);
   };
 
@@ -35,14 +50,11 @@ function Header() {
   const handleMenuItemClick = (setting) => {
     if (setting === "Logout") {
       handleLogout();
-    }
-    else if(setting === "Account"){
-      navigate("/account")
-    }
-    else if(setting === "Home"){
+    } else if (setting === "Account") {
+      navigate("/account");
+    } else if (setting === "Home") {
       navigate("/");
-    }
-    else {
+    } else {
       handleCloseUserMenu();
     }
   };
@@ -78,8 +90,14 @@ function Header() {
             {isUserLoggedIn() ? (
               <>
                 <Tooltip title="Open settings">
-                  <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                    <Avatar alt="User Avatar" src="/static/images/avatar/2.jpg" />
+                  <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }} disableRipple>
+                    <Avatar
+                      alt="User Avatar"
+                      sx={{ background:
+                        "linear-gradient(98.3deg, rgb(255, 220, 0) 10.6%, rgb(255, 180, 0) 97.7%)", }}
+                    >
+                      {JSON.parse(getUser()).username.toUpperCase().charAt(0)}
+                    </Avatar>
                   </IconButton>
                 </Tooltip>
                 <Menu
