@@ -130,11 +130,11 @@ export const Quiz = () => {
         >
             <Box
                 sx={{
-                    backgroundColor: '#1e1e1e', // Darker gray background
-                    color: '#ffffff', // White text
-                    borderRadius: '0', // No border radius for full coverage
+                    backgroundColor: '#1e1e1e', 
+                    color: '#ffffff',
+                    borderRadius: '0', 
                     padding: 4,
-                    boxShadow: 'none', // No shadow
+                    boxShadow: 'none', 
                     width: '100%',
                     height: '100%',
                     position: 'relative',
@@ -144,38 +144,38 @@ export const Quiz = () => {
                     variant="contained"
                     onClick={handleSubmit}
                     sx={{
-                        backgroundColor: "#ffeb3b", // Yellow color for the finish button
-                        color: "#000000", // Black text
+                        backgroundColor: "#ffeb3b", 
+                        color: "#000000",
                         '&:hover': {
-                            backgroundColor: '#f2d106', // Darker yellow on hover
+                            backgroundColor: '#f2d106', 
                         },
                         fontWeight: 'bold',
-                        padding: '16px 32px', // Larger padding for increased size
-                        borderRadius: '4px', // Rectangular shape
-                        fontSize: '18px', // Larger font size
-                        minWidth: '250px', // Minimum width
-                        position: 'absolute', // Absolute positioning within the Box
-                        top: 16, // Space from the top
-                        right: 16, // Space from the right
+                        padding: '16px 32px',
+                        borderRadius: '4px',
+                        fontSize: '18px',
+                        minWidth: '250px', 
+                        position: 'absolute', 
+                        top: 16,
+                        right: 16, 
                     }}
                 >
                     Finish Test
                 </Button>
                 <Typography
                     variant='h3'
-                    sx={{ textAlign: "center", marginBottom: 4, color: '#ffeb3b' }} // Gold color for the title
+                    sx={{ textAlign: "center", marginBottom: 4, color: '#ffeb3b' }} 
                 >
-                    {subject.toUpperCase()} {topic !== "null" && `(${topic.toUpperCase()})`}
+                    {subject.toUpperCase()} {topic !== "main" && `(${topic.toUpperCase()})`}
                 </Typography>
                 <Typography
                     variant="h6"
-                    sx={{ fontSize: "40px", textAlign: "center", mb: 4, color: '#ffeb3b' }} // Increased font size for timer
+                    sx={{ fontSize: "40px", textAlign: "center", mb: 4, color: '#ffeb3b' }} 
                 >
                     Time Left: {minutes}m {seconds}s
                 </Typography>
                 <Typography
                     variant="h5"
-                    sx={{ fontSize: "30px", textAlign: "left", mb: 2, color: '#ffffff' }} // Increased font size for question text
+                    sx={{ fontSize: "30px", textAlign: "left", mb: 2, color: '#ffffff' }} 
                 >
                     {idx + 1}. {question.description}
                 </Typography>
@@ -187,11 +187,11 @@ export const Quiz = () => {
                                     checked={selectedOption === "a"}
                                     onChange={handleOptionChange}
                                     value="a"
-                                    sx={{ color: '#ffeb3b' }} // Yellow color for checkboxes
+                                    sx={{ color: '#ffeb3b' }} 
                                 />
                             }
                             label={`A. ${question.option_a}`}
-                            sx={{ fontSize: '24px' }} // Increased font size for option labels
+                            sx={{ fontSize: '24px' }} 
                         />
                         <FormControlLabel
                             control={
@@ -199,11 +199,11 @@ export const Quiz = () => {
                                     checked={selectedOption === "b"}
                                     onChange={handleOptionChange}
                                     value="b"
-                                    sx={{ color: '#ffeb3b' }} // Yellow color for checkboxes
+                                    sx={{ color: '#ffeb3b' }}
                                 />
                             }
                             label={`B. ${question.option_b}`}
-                            sx={{ fontSize: '24px' }} // Increased font size for option labels
+                            sx={{ fontSize: '24px' }} 
                         />
                         <FormControlLabel
                             control={
@@ -211,11 +211,11 @@ export const Quiz = () => {
                                     checked={selectedOption === "c"}
                                     onChange={handleOptionChange}
                                     value="c"
-                                    sx={{ color: '#ffeb3b' }} // Yellow color for checkboxes
+                                    sx={{ color: '#ffeb3b' }} 
                                 />
                             }
                             label={`C. ${question.option_c}`}
-                            sx={{ fontSize: '24px' }} // Increased font size for option labels
+                            sx={{ fontSize: '24px' }} 
                         />
                         <FormControlLabel
                             control={
@@ -223,11 +223,11 @@ export const Quiz = () => {
                                     checked={selectedOption === "d"}
                                     onChange={handleOptionChange}
                                     value="d"
-                                    sx={{ color: '#ffeb3b' }} // Yellow color for checkboxes
+                                    sx={{ color: '#ffeb3b' }}
                                 />
                             }
                             label={`D. ${question.option_d}`}
-                            sx={{ fontSize: '24px' }} // Increased font size for option labels
+                            sx={{ fontSize: '24px' }} 
                         />
                     </Box>
                 </FormControl>
@@ -236,16 +236,16 @@ export const Quiz = () => {
                         <Button
                             variant="contained"
                             sx={{
-                                backgroundColor: "#ffeb3b", // Yellow color for buttons
-                                color: "#000000", // Black text
+                                backgroundColor: "#ffeb3b", 
+                                color: "#000000",
                                 '&:hover': {
-                                    backgroundColor: '#f2d106', // Darker yellow on hover
+                                    backgroundColor: '#f2d106', 
                                 },
                                 fontWeight: 'bold',
                                 padding: '12px 24px',
-                                borderRadius: '4px', // Rectangular shape
-                                fontSize: '16px', // Larger font size
-                                minWidth: '120px', // Minimum width
+                                borderRadius: '4px',
+                                fontSize: '16px', 
+                                minWidth: '120px',
                             }}
                             onClick={handlePrevious}
                             disabled={idx === 0}
@@ -255,16 +255,16 @@ export const Quiz = () => {
                         <Button
                             variant="contained"
                             sx={{
-                                backgroundColor: "#ffeb3b", // Yellow color for buttons
-                                color: "#000000", // Black text
+                                backgroundColor: "#ffeb3b", 
+                                color: "#000000",
                                 '&:hover': {
-                                    backgroundColor: '#f2d106', // Darker yellow on hover
+                                    backgroundColor: '#f2d106',
                                 },
                                 fontWeight: 'bold',
                                 padding: '12px 24px',
-                                borderRadius: '4px', // Rectangular shape
-                                fontSize: '16px', // Larger font size
-                                minWidth: '120px', // Minimum width
+                                borderRadius: '4px',
+                                fontSize: '16px',
+                                minWidth: '120px', 
                             }}
                             onClick={handleNext}
                             disabled={idx === currentData.length - 1}

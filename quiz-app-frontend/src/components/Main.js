@@ -46,8 +46,7 @@ export default function Main() {
               RESOURCES
             </Typography>
             <Typography variant="body2" color="text.secondary">
-              Lizards are a widespread group of squamate reptiles, with over 6,000
-              species, ranging across all continents except Antarctica.
+              Explore a comprehensive collection of educational materials and resources to enhance your knowledge and skills. Find tutorials, guides, and reference materials tailored to your learning needs.
             </Typography>
           </CardContent>
         </StyledCard>
@@ -63,8 +62,7 @@ export default function Main() {
               TEST
             </Typography>
             <Typography variant="body2" color="text.secondary">
-              Lizards are a widespread group of squamate reptiles, with over 6,000
-              species, ranging across all continents except Antarctica.
+            Put your knowledge to the test with a variety of quizzes and challenges. Evaluate your understanding, track your progress, and improve your skills with interactive test modules.
             </Typography>
           </CardContent>
         </StyledCard>

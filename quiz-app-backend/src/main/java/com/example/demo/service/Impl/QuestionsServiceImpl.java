@@ -98,7 +98,7 @@ public class QuestionsServiceImpl implements QuestionsService {
             result.add(questionsDto);
         }
         Collections.shuffle(result);
-        return result.stream().limit(30).collect(Collectors.toList());
+        return result.stream().limit(50).collect(Collectors.toList());
     }
     private Boolean processResponse(ResponseDto responseDto) {
         long id = responseDto.getId();
@@ -168,7 +168,7 @@ public class QuestionsServiceImpl implements QuestionsService {
             result.add(questionsDto);
         }
         Collections.shuffle(result);
-        return result.stream().limit(30).collect(Collectors.toList());
+        return result.stream().limit(50).collect(Collectors.toList());
     }
 
     @Override
@@ -225,7 +225,7 @@ public class QuestionsServiceImpl implements QuestionsService {
             list.add(questionsDto);
         }
         Collections.shuffle(list);
-        return list.stream().limit(30).collect(Collectors.toList());
+        return list.stream().limit(50).collect(Collectors.toList());
     }
 
     @Override
@@ -242,7 +242,7 @@ public class QuestionsServiceImpl implements QuestionsService {
             result.add(questionsDto);
         }
         Collections.shuffle(result);
-        return result.stream().limit(15).collect(Collectors.toList());
+        return result.stream().limit(50).collect(Collectors.toList());
     }
 
     @Override
@@ -288,7 +288,7 @@ public class QuestionsServiceImpl implements QuestionsService {
             list.add(questionsDto);
         }
         Collections.shuffle(list);
-        return list.stream().limit(30).collect(Collectors.toList());
+        return list.stream().limit(50).collect(Collectors.toList());
     }
 
     @Override

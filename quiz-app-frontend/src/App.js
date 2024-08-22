@@ -30,17 +30,6 @@ function App() {
         <Route path="/test/:subject" element={<Subject />} />
         <Route path="/test/instructions/:subject/:topic" element={<Instructions />} />
       </Routes>
-      <ToastContainer 
-        autoClose={2000} 
-        position="top-right"
-        hideProgressBar={false}
-        newestOnTop
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover 
-      />
 
     </BrowserRouter>
   );
