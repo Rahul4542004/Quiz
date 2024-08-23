@@ -78,10 +78,10 @@ export default function Instructions() {
           1. The paper pattern of our Intelliquest Test differs from other websites to ensure aspirants stay ahead in their preparation.
         </Typography>
         <Typography variant="body2" paragraph>
-          2. The test duration is 5 minutes.
+          2. The test duration is {topic==="main" ? "30" : "10"} minutes.
         </Typography>
         <Typography variant="body2" paragraph>
-          3. The mock test includes {topic === "main" ? "30" : "15"} questions, with a maximum score of 15 marks.
+          3. The mock test includes {topic === "main" ? "50" : "15"} questions, with a maximum score of {topic === "main" ? "50" : "15"}.
         </Typography>
         <Typography variant="body1" gutterBottom>
           <strong>Types of Tests in Intelliquest</strong>
@@ -115,7 +115,7 @@ export default function Instructions() {
         <Box sx={{ display: "flex", alignItems: "center", marginTop: 2 }}>
           <Checkbox checked={isChecked} onChange={handleCheckboxChange} sx={{ color: '#ffeb3b' }} />
           <Typography variant="body2" sx={{ color: '#ffffff' }}>
-            I have read and understood the instructions. If I exit full screen mode, my test will be auto-submitted. Check the box to start the test.
+            I have read and understood the instructions.
           </Typography>
         </Box>
         <Box sx={{ display: "flex", justifyContent: "center", marginTop: 3 }}>

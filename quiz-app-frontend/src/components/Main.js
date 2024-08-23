@@ -27,7 +27,15 @@ export default function Main() {
       setHasShownToast(true);
     }
   }, [hasShownToast]);
-
+  useEffect(() => {
+    const message = sessionStorage.getItem("registerMessage");
+    if(message){
+      toast.success(message);
+      setTimeout(() => {
+        sessionStorage.removeItem("registerMessage");
+      },1000)
+    }
+  },[])
   return (
     <>
       <Stack
