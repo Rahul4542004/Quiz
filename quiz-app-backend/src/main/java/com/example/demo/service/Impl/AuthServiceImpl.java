@@ -12,6 +12,7 @@ import com.example.demo.repository.RoleRepository;
 import com.example.demo.repository.UserRepository;
 import com.example.demo.security.JwtTokenProvider;
 import com.example.demo.service.AuthService;
+import jakarta.annotation.PostConstruct;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -23,6 +24,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentMap;
 
 @Service
 @AllArgsConstructor
@@ -32,6 +35,17 @@ public class AuthServiceImpl implements AuthService {
     private JwtTokenProvider tokenProvider;
     private PasswordEncoder passwordEncoder;
     private AuthenticationManager authenticationManager;
+    private final ConcurrentHashMap<String,User> usernameMap = new ConcurrentHashMap<>();
+    private final ConcurrentHashMap<String,User> emailMap = new ConcurrentHashMap<>();
+    @PostConstruct
+    public void init(){
+        usernameMap.clear();
+        emailMap.clear();
+        userRepository.findAll().stream().forEach( (user) -> {
+            usernameMap.put(user.getUsername(),user);
+            emailMap.put(user.getEmail(),user);
+        });
+    }
     @Override
     public String register(RegisterDto registerDto) {
         if(userRepository.existsByUsername(registerDto.getUsername())){
@@ -54,42 +68,39 @@ public class AuthServiceImpl implements AuthService {
         Role role = roleRepository.findByRole("ROLE_USER");
         roles.add(role);
         user.setRoles(roles);
-        userRepository.save(user);
+        User savedUser = userRepository.save(user);
+        usernameMap.put(savedUser.getUsername(),savedUser);
+        emailMap.put(savedUser.getEmail(),savedUser);
         return "User successfully registered";
     }
 
     @Override
     public JwtAuthResponseDto login(LoginDto loginDto) {
+        User user = usernameMap.getOrDefault(loginDto.getUsernameOrEmail(), emailMap.get(loginDto.getUsernameOrEmail()));
+        if (user == null || !passwordEncoder.matches(loginDto.getPassword(), user.getPassword())) {
+            throw new UsernameNotFoundException("Invalid username or password");
+        }
+
         Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(loginDto.getUsernameOrEmail(),loginDto.getPassword())
+                new UsernamePasswordAuthenticationToken(loginDto.getUsernameOrEmail(), loginDto.getPassword())
         );
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String token = tokenProvider.generateJwtToken(authentication);
 
-        Optional<User> user = userRepository.findByUsernameOrEmail(loginDto.getUsernameOrEmail(),loginDto.getUsernameOrEmail());
-        String role = null;
-        String username = null;
         JwtAuthResponseDto responseDto = new JwtAuthResponseDto();
-        if(user.isPresent()){
-            User user1 = user.get();
-            responseDto.setUser(user1);
-            username = user1.getUsername();
-            Optional<Role> currentRole = user1.getRoles().stream().findFirst();
-            if(currentRole.isPresent())
-                role = currentRole.get().getRole();
-        }
-        responseDto.setUsername(username);
+        responseDto.setUser(user);
+        responseDto.setUsername(user.getUsername());
         responseDto.setAccessToken(token);
-        responseDto.setRole(role);
+        responseDto.setRole(user.getRoles().stream().findFirst().map(Role::getRole).orElse(null));
         return responseDto;
     }
 
     @Override
     public String registerAsAdmin(RegisterDto registerDto) {
-        if(userRepository.existsByUsername(registerDto.getUsername())){
+        if(usernameMap.containsKey(registerDto.getUsername())){
             throw new CustomException(HttpStatus.BAD_REQUEST,"Username already exists");
         }
-        if(userRepository.existsByEmail(registerDto.getEmail())){
+        if(emailMap.containsKey(registerDto.getEmail())){
             throw new CustomException(HttpStatus.BAD_REQUEST,"Email already exists");
         }
         User user = new User();
@@ -110,7 +121,7 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public String updateInformation(UpdateDto user) {
-        User currentUser = userRepository.findByUsername(user.getUsername());
+        User currentUser = usernameMap.get(user.getUsername());
         boolean isUpdated = false;
         if(user.getEmail()!=null && !user.getEmail().equals(currentUser.getEmail())){
             isUpdated = true;
@@ -144,7 +155,9 @@ public class AuthServiceImpl implements AuthService {
             currentUser.setDob(user.getDob());
         }
         if(isUpdated) {
-            userRepository.save(currentUser);
+            User savedUser = userRepository.save(currentUser);
+            usernameMap.put(savedUser.getUsername(),savedUser);
+            emailMap.put(savedUser.getEmail(),savedUser);
             return "User details successfully updated";
         }
         else

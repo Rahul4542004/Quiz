@@ -79,8 +79,8 @@ export const Register = () => {
     const user = { firstName, lastName, username, email, password, phoneNo };
     register(user)
       .then((response) => {
-        toast.success("User successfully registered")
-        setTimeout(() => navigate('/'),2000);
+        sessionStorage.setItem("registerMessage","User successfully registered");
+        navigate('/');
       })
       .catch((err) => {
         if (err.response) {

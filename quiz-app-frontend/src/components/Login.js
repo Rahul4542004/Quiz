@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Button,
   TextField,
@@ -19,7 +19,14 @@ export const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
   const [errors, setErrors] = useState({});
-
+  useEffect(() => {
+    const message = sessionStorage.getItem("redirectMessage");
+    if(message){
+      toast.error(message);
+      setTimeout(() =>
+      sessionStorage.removeItem("redirectMessage"),1000);
+    }
+  },[])
   function isBlank(str) {
     return !str || /^\s*$/.test(str);
   }

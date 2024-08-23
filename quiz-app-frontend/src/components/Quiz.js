@@ -8,9 +8,16 @@ export const Quiz = () => {
     const [idx, setIdx] = useState(JSON.parse(localStorage.getItem('currentQuizIdx')) || 0);
     const [currentData, setCurrentData] = useState([]);
     const [selectedOption, setSelectedOption] = useState(null);
-    const [timeLeft, setTimeLeft] = useState(300); // 5 minutes in seconds
+    const [timeLeft, setTimeLeft] = useState(topic === "main" ? 1800 : 600); 
     const navigate = useNavigate();
-
+    useEffect(() => {
+        const sub = localStorage.getItem("subject");
+        const top = localStorage.getItem("topic");
+        if(!sub && !top){
+            localStorage.setItem("subject",subject);
+            localStorage.setItem("topic",topic);
+        }
+    },[])
     useEffect(() => {
         const fetchQuestions = async () => {
             const storedData = JSON.parse(localStorage.getItem('currentQuizData'));
@@ -121,7 +128,8 @@ export const Quiz = () => {
     const question = currentData[idx];
     const minutes = Math.floor(timeLeft / 60);
     const seconds = timeLeft % 60;
-
+    const subject1 = localStorage.getItem("subject");
+    const topic1 = localStorage.getItem("topic");
     return (
         <Container
             maxWidth="false"
@@ -165,7 +173,7 @@ export const Quiz = () => {
                     variant='h3'
                     sx={{ textAlign: "center", marginBottom: 4, color: '#ffeb3b' }} 
                 >
-                    {subject.toUpperCase()} {topic !== "main" && `(${topic.toUpperCase()})`}
+                    {subject1.toUpperCase()} {topic1 !== "main" && `(${topic1.toUpperCase()})`}
                 </Typography>
                 <Typography
                     variant="h6"
