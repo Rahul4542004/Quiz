@@ -21,16 +21,16 @@ function App() {
     <BrowserRouter>
       <Header />
       <Routes>
-        <Route path="/" element={<Main />} />
-        <Route path="/account" element={<ProtectedRoute><Account /> </ProtectedRoute>} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
+        <Route path="/" element={<TestRoute><Main /></TestRoute>} />
+        <Route path="/account" element={<ProtectedRoute><TestRoute><Account /></TestRoute> </ProtectedRoute>} />
+        <Route path="/login" element={<TestRoute><Login /></TestRoute>} />
+        <Route path="/register" element={<TestRoute><Register /></TestRoute>} />
         <Route path="/resources" element={<Resources />} />
-        <Route path="/test" element={<ProtectedRoute><Test /> </ProtectedRoute>} />
+        <Route path="/test" element={<ProtectedRoute><TestRoute><Test /></TestRoute> </ProtectedRoute>} />
         <Route path="/test/:subject/:topic" element={<ProtectedRoute><Quiz /> </ProtectedRoute>} />
-        <Route path="/finish/:score/:totalScore" element={<ProtectedRoute><Finish /> </ProtectedRoute>} />
-        <Route path="/test/:subject" element={<ProtectedRoute><Subject /> </ProtectedRoute>} />
-        <Route path="/test/instructions/:subject/:topic" element={<ProtectedRoute><Instructions /> </ProtectedRoute>} />
+        <Route path="/finish" element={<ProtectedRoute><FinishRoute><Finish /></FinishRoute></ProtectedRoute>} />
+        <Route path="/test/:subject" element={<ProtectedRoute><TestRoute><Subject /></TestRoute> </ProtectedRoute>} />
+        <Route path="/test/instructions/:subject/:topic" element={<ProtectedRoute><TestRoute><Instructions /> </TestRoute></ProtectedRoute>} />
       </Routes>
 
     </BrowserRouter>
@@ -45,9 +45,19 @@ const ProtectedRoute = ({children}) => {
 }
 const TestRoute = ({children}) => {
   const flag = isTakingTest();
+  const subject = localStorage.getItem("subject");
+  const topic = localStorage.getItem("topic");
   if(flag){
     sessionStorage.setItem("redirectMessage","That action is restricted!");
   }
-  return flag ? <Navigate to ="/test/subject/topic"/> : children
+  const route = `/test/${subject}/${topic}`
+  return flag ? <Navigate to = {route} /> : children
+}
+const FinishRoute = ({children}) => {
+  const flag = isTakingTest();
+  if(!flag){
+    sessionStorage.setItem("redirectMessage","That action is restricted!");
+  }
+  return flag ? children : <Navigate to="/"/>
 }
 export default App;
