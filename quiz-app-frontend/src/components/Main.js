@@ -36,6 +36,14 @@ export default function Main() {
       },1000)
     }
   },[])
+  useEffect(() => {
+    const message = sessionStorage.getItem("redirectMessage");
+    if(message){
+      toast.error(message);
+      setTimeout(() =>
+      sessionStorage.removeItem("redirectMessage"),1000);
+    }
+  },[])
   return (
     <>
       <Stack

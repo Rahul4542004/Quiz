@@ -12,6 +12,7 @@ import MenuItem from "@mui/material/MenuItem";
 import { useNavigate } from "react-router-dom";
 import { getUser, isUserLoggedIn, logout } from "../services/AuthService";
 import { useEffect, useState } from "react";
+import { isTakingTest } from "../services/QuizService";
 
 const settings = ["Home", "Account", "Logout"];
 const generateAvatars = () => {
@@ -43,7 +44,8 @@ function Header() {
   };
 
   const handleLogout = () => {
-    logout();
+    if(!isTakingTest())
+      logout();
     navigate("/");
   };
 

@@ -1,13 +1,21 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Box, Typography, Button, Paper, Container } from '@mui/material';
-import { useParams } from 'react-router-dom';
+
 import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 
 export const Finish = () => {
-  const { score, totalScore } = useParams();
+  const score = localStorage.getItem("score");
+  const totalScore = localStorage.getItem("totalScore");
   const percentage = (score / totalScore) * 100;
-
+  useEffect(() => {
+    return () => {
+        localStorage.removeItem("test");
+        localStorage.removeItem("currentQuizData");
+        localStorage.removeItem("currentQuizIdx");
+        localStorage.removeItem("time");
+    }
+  },[])
   let judgment = '';
   let suggestion = '';
 

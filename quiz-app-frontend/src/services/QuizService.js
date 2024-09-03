@@ -16,5 +16,10 @@ export const isTakingTest = () => {
     const test = localStorage.getItem("test")
     return test !== null && test !== "null";
 }
-
+export const getTime = () => {
+    return localStorage.getItem("time");
+}
+export const setTime = (x) => {
+    localStorage.setItem("time",JSON.stringify(x));
+}
 export const calculateScoreForOs = (responses) => axios.post(QUIZ_URL + "/os/submit",responses);
