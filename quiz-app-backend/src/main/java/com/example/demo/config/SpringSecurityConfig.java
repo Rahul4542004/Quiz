@@ -34,7 +34,7 @@ public class SpringSecurityConfig {
                 cors(Customizer.withDefaults()).
                 authorizeHttpRequests((authorize) -> {
                     authorize.requestMatchers("/api/auth/**").permitAll();
-                    authorize.requestMatchers("/api/questions/**").hasAnyRole("USER","ADMIN");
+                    authorize.requestMatchers("/api/questions/**").permitAll();
                     authorize.requestMatchers(HttpMethod.OPTIONS,"/**").permitAll();
                     authorize.anyRequest().authenticated();
                 }).httpBasic(Customizer.withDefaults());
