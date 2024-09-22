@@ -95,6 +95,7 @@ public class QuestionsServiceImpl implements QuestionsService {
             questionsDto.setOption_c(question.getOptionC());
             questionsDto.setOption_d(question.getOptionD());
             questionsDto.setId(question.getId());
+            questionsDto.setTopic(question.getTopic());
             result.add(questionsDto);
         }
         Collections.shuffle(result);
@@ -136,6 +137,7 @@ public class QuestionsServiceImpl implements QuestionsService {
             questionsDto.setOption_c(question.getOptionC());
             questionsDto.setOption_d(question.getOptionD());
             questionsDto.setId(question.getId());
+            questionsDto.setTopic(question.getTopic());
             result.add(questionsDto);
         }
         return result;

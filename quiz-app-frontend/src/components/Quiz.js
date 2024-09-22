@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { calculateScoreForOs, getCNS, getCNSByTopic, getDBMS, getDBMSByTopic, getOOPS, getOOPSByTopic, getOS, getOSByTopic, getTime, saveTest, setTime } from '../services/QuizService';
+import { calculateScoreForCns, calculateScoreForDbms, calculateScoreForOops, calculateScoreForOs, getCNS, getCNSByTopic, getDBMS, getDBMSByTopic, getOOPS, getOOPSByTopic, getOS, getOSByTopic, getTime, saveTest, setTime } from '../services/QuizService';
 import { FormControl, FormControlLabel, Typography, Checkbox, Button, Box, Container, Snackbar, Alert, IconButton } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 
 export const Quiz = () => {
-    const { subject, topic } = useParams();
+    let { subject, topic } = useParams();
     const [idx, setIdx] = useState(JSON.parse(localStorage.getItem('currentQuizIdx')) || 0);
     const [currentData, setCurrentData] = useState([]);
     const [selectedOption, setSelectedOption] = useState(null);
@@ -14,6 +14,19 @@ export const Quiz = () => {
     const [snackbarMessage, setSnackbarMessage] = useState('');
     const navigate = useNavigate();
     localStorage.setItem("canReach","true");
+    let subject2;
+    if(subject==="os"){
+        subject2 = "Operating Systems";
+    }
+    else if(subject==="dbms"){
+        subject2 = "Database Management System"
+    }
+    else if(subject==="oops"){
+        subject2 = "Object Oriented Programming"
+    }
+    else{
+        subject2 = "Computer Networks & Security"
+    }
     useEffect(() => {
         const time = getTime();
         if (time !== null) {
@@ -31,12 +44,8 @@ export const Quiz = () => {
     }, []); 
 
     useEffect(() => {
-        const sub = localStorage.getItem("subject");
-        const top = localStorage.getItem("topic");
-        if (!sub && !top) {
-            localStorage.setItem("subject", subject);
-            localStorage.setItem("topic", topic);
-        }
+        localStorage.setItem("subject", subject);
+        localStorage.setItem("topic", topic);
         const message = sessionStorage.getItem("redirectMessage");
         if (message) {
             setSnackbarMessage(message);
@@ -97,7 +106,7 @@ export const Quiz = () => {
             setTimeLeft(prevTime => {
                 if (prevTime <= 1) {
                     clearInterval(timer);
-                    handleSubmit();
+                    handleSubmit(); 
                     return 0;
                 }
                 const newTimeLeft = prevTime - 1;
@@ -105,9 +114,10 @@ export const Quiz = () => {
                 return newTimeLeft;
             });
         }, 1000);
-
+    
         return () => clearInterval(timer);
     }, []);
+    
 
     const handleNext = () => {
         if (idx < currentData.length - 1) {
@@ -139,30 +149,50 @@ export const Quiz = () => {
         return <Typography>Loading questions...</Typography>;
     }
 
-    function handleSubmit(e) {
-        e?.preventDefault();
+    async function handleSubmit() {
         const responses = currentData.map(data => ({
             id: data.id,
-            response: data.option
+            response: data.option,
         }));
-        calculateScoreForOs(responses).then(response => {
+    
+        try {
+            let response;
+            if(subject==="os")
+                response = await calculateScoreForOs(responses);
+            else if(subject==="dbms")
+                response = await calculateScoreForDbms(responses);
+            else if(subject==="cns")
+                response = await calculateScoreForCns(responses);
+            else
+                response = await calculateScoreForOops(responses); 
             const score = response.data;
-            localStorage.setItem("score",score);
-            localStorage.setItem("totalScore",currentData.length)
+            localStorage.setItem("score", score);
+            localStorage.setItem("totalScore", currentData.length);
             navigate(`/finish`);
-        });
+        } catch (err) {
+            console.error("Error while submitting the quiz:", err);
+        }
     }
+    
 
     const handleCloseSnackbar = () => {
         setOpenSnackbar(false);
     };
-
+    const optionFilter = (s) => {
+        const newStr = s.replace("(Correct)","");
+        return newStr;
+    }
+    const formatTopic = (topic) => {
+        return topic
+          .split("-")
+          .map((part) => part.toUpperCase())
+          .join(" ");
+      };
     const question = currentData[idx];
     const minutes = Math.floor(timeLeft / 60);
     const seconds = timeLeft % 60;
-    const subject1 = localStorage.getItem("subject");
-    const topic1 = localStorage.getItem("topic");
-
+    let topic1 = localStorage.getItem("topic");
+    topic1 = formatTopic(topic1)
     return (
         <>
             <Container
@@ -182,6 +212,13 @@ export const Quiz = () => {
                         position: 'relative',
                     }}
                 >
+                    <div style={{display : "flex"}}>
+                    <Typography
+                        variant="h4"
+                        sx={{  textAlign: "center", mb: 4, color: '#ffeb3b' }}
+                    >
+                        Time Left: {minutes}m {seconds}s
+                    </Typography>
                     <Button
                         variant="contained"
                         onClick={handleSubmit}
@@ -203,21 +240,20 @@ export const Quiz = () => {
                     >
                         Finish Test
                     </Button>
+                    </div>
                     <Typography
-                        variant='h3'
-                        sx={{ textAlign: "center", marginBottom: 4, color: '#ffeb3b' }}
+                        variant='h4'
+                        sx={{ textAlign : "center", marginBlock : 4,marginTop : "-75px", color : "#ffeb3b"}}
                     >
-                        {subject1.toUpperCase()} {topic1 !== "main" && `(${topic1.toUpperCase()})`}
+                        {subject2.toUpperCase()} 
                     </Typography>
-                    <Typography
-                        variant="h6"
-                        sx={{ fontSize: "40px", textAlign: "center", mb: 4, color: '#ffeb3b' }}
+                    <Typography variant='h4' sx = {{textAlign : "center", marginBlock : 4,marginTop : "-5px", color : "#ffeb3b"}}
                     >
-                        Time Left: {minutes}m {seconds}s
+                        {topic1 !== "MAIN" && `(${topic1.toUpperCase()})`}
                     </Typography>
                     <Typography
                         variant="h5"
-                        sx={{ fontSize: "30px", textAlign: "left", mb: 2, color: '#ffffff' }}
+                        sx={{ fontSize: "30px", textAlign: "left", mb: 2, color: '#ffffff',mt : 8 }}
                     >
                         {idx + 1}. {question.description}
                     </Typography>
@@ -232,7 +268,7 @@ export const Quiz = () => {
                                         sx={{ color: '#ffeb3b' }}
                                     />
                                 }
-                                label={`A. ${question.option_a}`}
+                                label={`A. ${optionFilter(question.option_a)}`}
                                 sx={{ fontSize: '24px' }}
                             />
                             <FormControlLabel
@@ -244,7 +280,7 @@ export const Quiz = () => {
                                         sx={{ color: '#ffeb3b' }}
                                     />
                                 }
-                                label={`B. ${question.option_b}`}
+                                label={`B. ${optionFilter(question.option_b)}`}
                                 sx={{ fontSize: '24px' }}
                             />
                             <FormControlLabel
@@ -256,7 +292,7 @@ export const Quiz = () => {
                                         sx={{ color: '#ffeb3b' }}
                                     />
                                 }
-                                label={`C. ${question.option_c}`}
+                                label={`C. ${optionFilter(question.option_c)}`}
                                 sx={{ fontSize: '24px' }}
                             />
                             <FormControlLabel
@@ -268,7 +304,7 @@ export const Quiz = () => {
                                         sx={{ color: '#ffeb3b' }}
                                     />
                                 }
-                                label={`D. ${question.option_d}`}
+                                label={`D. ${optionFilter(question.option_d)}`}
                                 sx={{ fontSize: '24px' }}
                             />
                         </Box>

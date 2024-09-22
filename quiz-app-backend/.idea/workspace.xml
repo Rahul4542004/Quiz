@@ -6,6 +6,15 @@
   <component name="ChangeListManager">
     <list default="true" id="51bda66e-3f19-4426-a042-8b3f80b01f6c" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo/config/SpringSecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/config/SpringSecurityConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo/mapper/Mapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/mapper/Mapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo/service/Impl/QuestionsServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/service/Impl/QuestionsServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/demo/config/SpringSecurityConfig.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/demo/config/SpringSecurityConfig.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/demo/mapper/Mapper.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/demo/mapper/Mapper.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/demo/service/Impl/QuestionsServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/demo/service/Impl/QuestionsServiceImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../quiz-app-frontend/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/../quiz-app-frontend/src/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../quiz-app-frontend/src/components/Quiz.js" beforeDir="false" afterPath="$PROJECT_DIR$/../quiz-app-frontend/src/components/Quiz.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../quiz-app-frontend/src/services/QuizService.js" beforeDir="false" afterPath="$PROJECT_DIR$/../quiz-app-frontend/src/services/QuizService.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

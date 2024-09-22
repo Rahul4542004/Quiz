@@ -23,3 +23,6 @@ export const setTime = (x) => {
     localStorage.setItem("time",JSON.stringify(x));
 }
 export const calculateScoreForOs = (responses) => axios.post(QUIZ_URL + "/os/submit",responses);
+export const calculateScoreForCns = (responses) => axios.post(QUIZ_URL + "/cns/submit",responses);
+export const calculateScoreForDbms = (responses) => axios.post(QUIZ_URL + "/dbms/submit",responses);
+export const calculateScoreForOops = (responses) => axios.post(QUIZ_URL + "/oops/submit",responses);

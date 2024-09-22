@@ -23,7 +23,7 @@ function App() {
       <Routes>
         <Route path="/" element={<TestRoute><Main /></TestRoute>} />
         <Route path="/account" element={<ProtectedRoute><TestRoute><Account /></TestRoute> </ProtectedRoute>} />
-        <Route path="/login" element={<TestRoute><Login /></TestRoute>} />
+        <Route path="/login" element={<TestRoute><LoginRoute><Login /></LoginRoute></TestRoute>} />
         <Route path="/register" element={<TestRoute><Register /></TestRoute>} />
         <Route path="/resources" element={<Resources />} />
         <Route path="/test" element={<ProtectedRoute><TestRoute><Test /></TestRoute> </ProtectedRoute>} />
@@ -42,6 +42,13 @@ const ProtectedRoute = ({children}) => {
     sessionStorage.setItem("redirectMessage","You need to login first");
   }
   return flag ? children : <Navigate to="/login"/>;
+}
+const LoginRoute = ({children}) => {
+  const flag = !isUserLoggedIn();
+  if(!flag){
+    sessionStorage.setItem("redirectMessage","You need to logout first");
+  }
+  return flag ? children : <Navigate to="/"/>;
 }
 const TestRoute = ({children}) => {
   const flag = isTakingTest();

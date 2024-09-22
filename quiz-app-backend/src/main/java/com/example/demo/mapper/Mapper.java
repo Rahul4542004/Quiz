@@ -9,6 +9,7 @@ public class Mapper {
     public static QuestionsDto mapToQuestionsDto(DBMSQuestions questions){
         QuestionsDto questionsDto = new QuestionsDto();
         questionsDto.setDescription(questions.getDescription());
+        questionsDto.setTopic(questions.getTopic());
         questionsDto.setOption_a(questions.getOptionA());
         questionsDto.setOption_b(questions.getOptionB());
         questionsDto.setOption_c(questions.getOptionC());
@@ -18,6 +19,7 @@ public class Mapper {
     public static QuestionsDto mapCnsToQuestionsDto(CNSQuestions cnsQuestions){
         QuestionsDto questionsDto = new QuestionsDto();
         questionsDto.setDescription(cnsQuestions.getDescription());
+        questionsDto.setTopic(cnsQuestions.getTopic());
         questionsDto.setOption_b(cnsQuestions.getOptionB());
         questionsDto.setOption_c(cnsQuestions.getOptionC());
         questionsDto.setOption_d(cnsQuestions.getOptionD());
@@ -27,6 +29,7 @@ public class Mapper {
     public static QuestionsDto mapOOPSToQuestionsDto(OOPSQuestions oopsQuestions){
         QuestionsDto questionsDto = new QuestionsDto();
         questionsDto.setDescription(oopsQuestions.getDescription());
+        questionsDto.setTopic(oopsQuestions.getTopic());
         questionsDto.setOption_a(oopsQuestions.getOptionA());
         questionsDto.setOption_b(oopsQuestions.getOptionB());
         questionsDto.setOption_c(oopsQuestions.getOptionC());
