@@ -1,5 +1,6 @@
 import { responsiveFontSizes } from "@mui/material";
 import axios from "axios";
+import { createContext, useState } from "react";
 const QUIZ_URL = "http://localhost:8095/api/questions";
 export const getOS = () => axios.get(QUIZ_URL+"/os");
 export const getCNS = () => axios.get(QUIZ_URL + "/cns");
@@ -26,3 +27,13 @@ export const calculateScoreForOs = (responses) => axios.post(QUIZ_URL + "/os/sub
 export const calculateScoreForCns = (responses) => axios.post(QUIZ_URL + "/cns/submit",responses);
 export const calculateScoreForDbms = (responses) => axios.post(QUIZ_URL + "/dbms/submit",responses);
 export const calculateScoreForOops = (responses) => axios.post(QUIZ_URL + "/oops/submit",responses);
+
+const context = createContext();
+const Provider = ({children}) => {
+    const [state,setState] = useState('Hi');
+    return(
+    <context.Provider value={[state,setState]}>
+        {children}
+    </context.Provider>
+    );
+}

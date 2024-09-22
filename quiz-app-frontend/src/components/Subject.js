@@ -1,37 +1,80 @@
 import React, { useEffect, useState } from "react";
-import { Paper,Button } from "@mui/material";
+import { Button, Container, Grid, Card, CardContent, Typography, Box } from "@mui/material";
 import { useNavigate, useParams } from "react-router-dom";
 
 export const Subject = () => {
   const { subject } = useParams();
-  let [topic1, setTopic1] = useState("");
-  let [topic2, setTopic2] = useState("");
-  let [topic3, setTopic3] = useState("");
-  let [topic4, setTopic4] = useState("");
+  const [topics, setTopics] = useState([]);
+  const [descriptions, setDescriptions] = useState([]);
   const navigate = useNavigate();
+
   useEffect(() => {
-    if (subject === "os") {
-      setTopic1("os-basics");
-      setTopic2("deadlock-prevention");
-      setTopic3("memory-management");
-      setTopic4("protection-security");
-    } else if (subject === "dbms") {
-      setTopic1("Introduction-to-DBMS");
-      setTopic2("SQL");
-      setTopic3("Schema-Refinement-&-Normalization");
-      setTopic4("Transcation-Management");
-    } else if (subject === "cns") {
-      setTopic1("Network-Models");
-      setTopic2("Physical-&-Data-Link-Layer");
-      setTopic3("Network-Layer-and-Routing-Algorithms");
-      setTopic4("Cryptography-&-Network-Security");
-    } else if (subject === "oops") {
-      setTopic1("Classes-and-Objects");
-      setTopic2("OOP-Concepts");
-      setTopic3("Standard-Keywords");
-      setTopic4("Abstraction-&-Interfaces");
-    }
+    const topicMapping = {
+      os: [
+        "os-basics",
+        "deadlock-prevention",
+        "memory-management",
+        "protection-security",
+        "Complete Quiz"
+      ],
+      dbms: [
+        "Introduction-to-DBMS",
+        "SQL",
+        "Schema-Refinement-&-Normalization",
+        "Transaction-Management",
+        "Complete Quiz"
+      ],
+      cns: [
+        "Network-Models",
+        "Physical-&-Data-Link-Layer",
+        "Network-Layer-and-Routing-Algorithms",
+        "Cryptography-&-Network-Security",
+        "Complete Quiz"
+      ],
+      oops: [
+        "Classes-and-Objects",
+        "OOP-Concepts",
+        "Standard-Keywords",
+        "Abstraction-&-Interfaces",
+        "Complete Quiz"
+      ]
+    };
+  
+    const descriptionMapping = {
+      os: [
+        "OS Basics: Explore the core components of an operating system, its functions, and how it manages hardware and software resources. Learn about process management, scheduling, and how the OS provides a platform for application execution. Understand the difference between various types of operating systems like batch, real-time, distributed, and multi-user OSs.",
+        "Deadlock Prevention: Delve into the conditions that lead to deadlocks in computing environments. Understand different strategies for preventing, avoiding, and detecting deadlocks. Study resource allocation graphs, and techniques like process scheduling and resource preemption to manage deadlocks effectively.",
+        "Memory Management: Discover how operating systems manage memory through techniques like paging, segmentation, and swapping. Learn about the virtual memory concept, how memory is allocated and deallocated, and strategies to avoid memory leaks and fragmentation.",
+        "Protection & Security: Focus on the mechanisms employed by operating systems to protect user data and system resources from unauthorized access. Learn about encryption, authentication, access control mechanisms, and how the OS ensures data integrity and user privacy.",
+        "Complete Quiz: Test your understanding of all the topics covered under Operating Systems through a comprehensive quiz. This will help reinforce the concepts you've learned and assess your knowledge on OS basics, deadlock prevention, memory management, and protection & security."
+      ],
+      dbms: [
+        "Introduction to DBMS: Understand the basics of Database Management Systems, including the different types of databases (relational, NoSQL, hierarchical, etc.). Learn how DBMSs manage large sets of structured data and enable efficient retrieval and manipulation of data through queries.",
+        "SQL: Structured Query Language (SQL) is the standard language used to communicate with databases. Learn to write queries to create, read, update, and delete (CRUD) data from relational databases. Explore advanced topics like joins, nested queries, indexes, and query optimization.",
+        "Schema Refinement & Normalization: Discover the importance of designing efficient database schemas. Learn about normalization and its various forms (1NF, 2NF, 3NF, BCNF) to reduce redundancy and eliminate anomalies in relational databases. Understand the trade-offs between normalization and performance.",
+        "Transaction Management: Study how transactions are managed in a DBMS to ensure ACID (Atomicity, Consistency, Isolation, Durability) properties. Learn about transaction logs, commit protocols, concurrency control, and how databases recover from failures to maintain data integrity.",
+        "Complete Quiz: Test your understanding of all the topics covered under DBMS through a final quiz, reviewing concepts such as SQL, schema refinement, normalization, and transaction management."
+      ],
+      cns: [
+        "Network Models: Explore different network models, including the OSI and TCP/IP models. Learn how each layer in these models functions to facilitate communication across networks, from the physical transmission of bits to the application-level communication protocols like HTTP and FTP.",
+        "Physical & Data Link Layer: Understand how data is transmitted over the network at the physical layer, including concepts like signal modulation and transmission media. At the Data Link Layer, explore protocols like Ethernet, MAC addressing, and error detection and correction techniques.",
+        "Network Layer & Routing Algorithms: Study how data is routed across different networks using routing algorithms like Dijkstra, Bellman-Ford, and AODV. Learn about IP addressing, subnetting, and the role of routers in ensuring data reaches its destination through the most efficient path.",
+        "Cryptography & Network Security: Dive into the world of cryptography, including symmetric and asymmetric encryption methods, digital signatures, and certificates. Learn how to protect data from eavesdropping, tampering, and unauthorized access. Explore common security threats like DDoS attacks and phishing.",
+        "Complete Quiz: Test your understanding of Computer Networks concepts with a final quiz covering topics such as network models, layers, routing algorithms, and cryptography."
+      ],
+      oops: [
+        "Classes and Objects: In object-oriented programming, everything revolves around the concept of classes and objects. Learn how classes serve as blueprints for objects, encapsulating attributes and behaviors. Explore how objects are instances of classes and how they interact with each other in complex systems.",
+        "OOP Concepts: Dive deep into the four fundamental principles of OOP—encapsulation, abstraction, inheritance, and polymorphism. Understand how these concepts are used to create modular, reusable, and scalable code, and how they differ from procedural programming approaches.",
+        "Standard Keywords: Familiarize yourself with common OOP keywords such as 'this', 'super', 'extends', 'implements', and 'new'. Learn how these keywords are used to manage object creation, inheritance, method overriding, and polymorphism in various programming languages.",
+        "Abstraction & Interfaces: Understand the concept of abstraction, where complex systems are simplified by exposing only relevant data. Learn about interfaces and abstract classes and how they allow for the implementation of multiple inheritance in object-oriented languages.",
+        "Complete Quiz: Review and test your knowledge of OOP principles, classes, objects, abstraction, and interfaces through a final comprehensive quiz."
+      ]
+    };
+  
+    setTopics(topicMapping[subject] || []);
+    setDescriptions(descriptionMapping[subject] || []);
   }, [subject]);
+  
 
   const formatTopic = (topic) => {
     return topic
@@ -40,134 +83,39 @@ export const Subject = () => {
       .join(" ");
   };
 
-  const messages = [topic1, topic2, topic3, topic4].map(formatTopic);
+  const messages = topics.map(formatTopic);
 
   return (
-    <div className="grid-container" style={{ background: "linear-gradient(111.4deg, rgb(2, 255, 4) 18.4%, rgb(0, 232, 237) 100.2%)" }}>
-      <div className="grid-item top-left">
-        <Button disableRipple onClick={() => navigate(`/test/instructions/${subject}/${topic1}`)}>
-        <Paper
-          elevation={14}
-          sx={{
-            padding: "25px",
-            textAlign: "center",
-            backgroundColor: "black",
-            marginLeft: "35px",
-            marginTop: "30px",
-            marginBottom: "50px",
-            height: "250px",
-            width: "270px",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            background:
-              "linear-gradient(110.4deg, rgb(247, 112, 15) 6.4%, rgb(248, 50, 88) 100.2%)",
-          }}
-        >
-          <h1 style={{ color: "white" }}>{messages[0]}</h1>
-          {/* {messages[0]} */}
-        </Paper>
-        </Button>
-      </div>
-
-      <div className="grid-item bottom-left">
-      <Button disableRipple onClick={() => navigate(`/test/instructions/${subject}/${topic2}`)}>
-        <Paper
-          elevation={14}
-          sx={{
-            padding: "25px",
-            paddingright: "10px",
-            textAlign: "center",
-            backgroundColor: "black",
-            marginLeft: "35px",
-            marginTop: "10px",
-            marginBottom: "50px",
-            height: "250px",
-            width: "270px",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            background:
-              "linear-gradient(110.4deg, rgb(247, 112, 15) 6.4%, rgb(248, 50, 88) 100.2%)",
-          }}
-        >
-          <h1 style={{ color: "white", textAlign: "center" }}>{messages[1]}</h1>
-        </Paper>
-        </Button>
-      </div>
-    
-      <div className="grid-item center">
-      <Button disableRipple onClick={() => navigate(`/test/instructions/${subject}/${"main"}`)}>
-        <Paper
-          elevation={14}
-          sx={{
-            padding: "20px",
-            textAlign: "center",
-            backgroundColor: "black",
-            height: "300px", // Span both rows
-            width: "300px",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            borderRadius: "250px",
-          }}
-        >
-          <h1 style={{ color: "white", textAlign: "center" }}>OVERALL QUIZ</h1>
-          {/* {messages[2]} */}
-        </Paper>
-        </Button>
-      </div>
-
-      <div className="grid-item top-right">
-      <Button disableRipple onClick={() => navigate(`/test/instructions/${subject}/${topic3}`)}>
-        <Paper
-          elevation={14}
-          sx={{
-            padding: "25px",
-            textAlign: "center",
-            backgroundColor: "black",
-            marginRight: "35px",
-            marginTop: "10px",
-            height: "250px",
-            width: "270px",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            background:
-              "linear-gradient(110.4deg, rgb(247, 112, 15) 6.4%, rgb(248, 50, 88) 100.2%)",
-          }}
-        >
-          <h1 style={{ color: "white" }}> {messages[2]}</h1>
-          {/* {messages[3]} */}
-        </Paper>
-        </Button>
-      </div>
-
-      <div className="grid-item bottom-right">
-      <Button disableRipple onClick={() => navigate(`/test/instructions/${subject}/${topic4}`)}>
-        <Paper
-          elevation={14}
-          sx={{
-            padding: "25px",
-            textAlign: "center",
-            backgroundColor: "black",
-            marginRight: "35px",
-            marginTop: "10px",
-            marginBottom: "50px",
-            height: "250px",
-            width: "250px",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            background:
-              "linear-gradient(110.4deg, rgb(247, 112, 15) 6.4%, rgb(248, 50, 88) 100.2%)",
-          }}
-        >
-          <h1 style={{ color: "white" }}>{messages[3]}</h1>
-          {/* {messages[4]} */}
-        </Paper>
-        </Button>
-      </div>
-    </div>
+    <Container maxWidth="lg" style={{ padding: "40px 0" }}>
+      <Box sx={{ backgroundColor: '#f5f5f5', padding: '20px', borderRadius: '8px', boxShadow: 3 }}>
+      <Grid container spacing={2} justifyContent="center">
+        {messages.map((topic, index) => (
+          <Grid item xs={12} key={index}>
+            <Card sx={{ width: '100%', marginBottom: '20px' }}>
+              <CardContent>
+                <Typography variant="h5">{topic}</Typography>
+                <Typography variant="body2" color="text.secondary" sx={{ marginTop : "10px",width : "90%" }}>
+                  {descriptions[index]}
+                </Typography>
+                <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+                  <Button 
+                    variant="contained" 
+                    onClick={() => {
+                      if(topics[index]!=="Complete Quiz")
+                        navigate(`/test/instructions/${subject}/${topics[index]}`)
+                      else
+                        navigate(`/test/instructions/${subject}/${"main"}`)
+                    }}
+                  >
+                    Start
+                  </Button>
+                </div>
+              </CardContent>
+            </Card>
+          </Grid>
+        ))}
+      </Grid>
+      </Box>
+    </Container>
   );
 };
