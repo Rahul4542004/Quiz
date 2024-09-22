@@ -44,7 +44,7 @@ export default function Instructions() {
       sx={{
         height: '100vh',
         padding: 0,
-        margin: 0,
+        margin: 2,
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center'
