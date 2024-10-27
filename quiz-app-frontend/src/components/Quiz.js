@@ -3,7 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { calculateScoreForCns, calculateScoreForDbms, calculateScoreForOops, calculateScoreForOs, getCNS, getCNSByTopic, getDBMS, getDBMSByTopic, getOOPS, getOOPSByTopic, getOS, getOSByTopic, getTime, saveTest, setTime } from '../services/QuizService';
 import { FormControl, FormControlLabel, Typography, Checkbox, Button, Box, Container, Snackbar, Alert, IconButton } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
-
+import { saveScore } from '../services/QuizService';
 export const Quiz = () => {
     let { subject, topic } = useParams();
     const [idx, setIdx] = useState(JSON.parse(localStorage.getItem('currentQuizIdx')) || 0);
@@ -107,7 +107,6 @@ export const Quiz = () => {
                 if (prevTime <= 1) {
                     clearInterval(timer);
                     handleSubmit(); 
-                    return 0;
                 }
                 const newTimeLeft = prevTime - 1;
                 setTime(newTimeLeft);
@@ -116,7 +115,7 @@ export const Quiz = () => {
         }, 1000);
     
         return () => clearInterval(timer);
-    }, []);
+    }, [currentData]);
     
 
     const handleNext = () => {
@@ -168,6 +167,8 @@ export const Quiz = () => {
             const score = response.data;
             localStorage.setItem("score", score);
             localStorage.setItem("totalScore", currentData.length);
+            const scoreDetails = {subject : subject2+`(${topic1})`, score : score, totalScore : currentData.length};
+            await saveScore(scoreDetails);
             navigate(`/finish`);
         } catch (err) {
             console.error("Error while submitting the quiz:", err);

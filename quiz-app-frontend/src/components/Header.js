@@ -14,7 +14,7 @@ import { getUser, isUserLoggedIn, logout } from "../services/AuthService";
 import { useEffect, useState } from "react";
 import { isTakingTest } from "../services/QuizService";
 
-const settings = ["Home", "Account", "Logout"];
+const settings = ["Home", "Account", "Dashboard","Logout"];
 const generateAvatars = () => {
   const avatars = [];
   const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
@@ -56,6 +56,9 @@ function Header() {
       navigate("/account");
     } else if (setting === "Home") {
       navigate("/");
+    }
+    else if(setting === "Dashboard"){
+      navigate("/dashboard");
     } else {
       handleCloseUserMenu();
     }

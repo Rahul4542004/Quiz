@@ -86,36 +86,37 @@ export const Subject = () => {
   const messages = topics.map(formatTopic);
 
   return (
-    <Container maxWidth="lg" style={{ padding: "40px 0" }}>
-      <Box sx={{ backgroundColor: '#f5f5f5', padding: '20px', borderRadius: '8px', boxShadow: 3 }}>
-      <Grid container spacing={2} justifyContent="center">
-        {messages.map((topic, index) => (
-          <Grid item xs={12} key={index}>
-            <Card sx={{ width: '100%', marginBottom: '20px' }}>
-              <CardContent>
-                <Typography variant="h5">{topic}</Typography>
-                <Typography variant="body2" color="text.secondary" sx={{ marginTop : "10px",width : "90%" }}>
-                  {descriptions[index]}
-                </Typography>
-                <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
-                  <Button 
-                    variant="contained" 
-                    onClick={() => {
-                      if(topics[index]!=="Complete Quiz")
-                        navigate(`/test/instructions/${subject}/${topics[index]}`)
-                      else
-                        navigate(`/test/instructions/${subject}/${"main"}`)
-                    }}
-                  >
-                    Start
-                  </Button>
-                </div>
-              </CardContent>
-            </Card>
-          </Grid>
-        ))}
-      </Grid>
+    <div>
+      <Box sx={{ width: '100%', height: '100%', backgroundColor: '#f5f5f5', padding: '50px', borderRadius: '8px' }}>
+        <Grid container spacing={2} justifyContent="center">
+          {messages.map((topic, index) => (
+            <Grid item xs={12} md={8} key={index}> 
+              <Card sx={{ width: '100%', height: '180px', marginBottom: '20px' }}>
+                <CardContent>
+                  <Typography variant="h5">{topic}</Typography>
+                  <Typography variant="body2" color="text.secondary" sx={{ marginTop: "10px", width: "90%" }}>
+                    {descriptions[index]}
+                  </Typography>
+                  <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+                    <Button
+                      variant="contained"
+                      onClick={() => {
+                        if (topics[index] !== "Complete Quiz") {
+                          navigate(`/test/instructions/${subject}/${topics[index]}`);
+                        } else {
+                          navigate(`/test/instructions/${subject}/main`);
+                        }
+                      }}
+                    >
+                      Start
+                    </Button>
+                  </div>
+                </CardContent>
+              </Card>
+            </Grid>
+          ))}
+        </Grid>
       </Box>
-    </Container>
+    </div>
   );
 };

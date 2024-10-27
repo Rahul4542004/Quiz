@@ -244,7 +244,7 @@ public class QuestionsServiceImpl implements QuestionsService {
             result.add(questionsDto);
         }
         Collections.shuffle(result);
-        return result.stream().limit(50).collect(Collectors.toList());
+        return result.stream().limit(15).collect(Collectors.toList());
     }
 
     @Override

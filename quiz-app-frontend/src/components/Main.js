@@ -55,7 +55,7 @@ export default function Main() {
           <CardMedia
             sx={{ height: 240 }}
             image="/quiz1.jpg"
-            title="green iguana"
+            title="Resources"
           />
           <CardContent>
             <Typography gutterBottom variant="h5" component="div">
@@ -71,7 +71,7 @@ export default function Main() {
           <CardMedia
             sx={{ height: 240 }}
             image="/quiz2.jpg"
-            title="green iguana"
+            title="Test"
           />
           <CardContent>
             <Typography gutterBottom variant="h5" component="div">

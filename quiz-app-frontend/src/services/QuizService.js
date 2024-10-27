@@ -1,7 +1,7 @@
-import { responsiveFontSizes } from "@mui/material";
 import axios from "axios";
-import { createContext, useState } from "react";
+import { getUser } from "./AuthService";
 const QUIZ_URL = "http://localhost:8095/api/questions";
+const SCORE_URL = "http://localhost:8095/api/score/";
 export const getOS = () => axios.get(QUIZ_URL+"/os");
 export const getCNS = () => axios.get(QUIZ_URL + "/cns");
 export const getOOPS = () => axios.get(QUIZ_URL + "/oops");
@@ -28,12 +28,17 @@ export const calculateScoreForCns = (responses) => axios.post(QUIZ_URL + "/cns/s
 export const calculateScoreForDbms = (responses) => axios.post(QUIZ_URL + "/dbms/submit",responses);
 export const calculateScoreForOops = (responses) => axios.post(QUIZ_URL + "/oops/submit",responses);
 
-const context = createContext();
-const Provider = ({children}) => {
-    const [state,setState] = useState('Hi');
-    return(
-    <context.Provider value={[state,setState]}>
-        {children}
-    </context.Provider>
-    );
+export const saveScore = (scoreDetails) => {
+    const username = (JSON.parse(getUser())).username;
+    axios.post(SCORE_URL,scoreDetails,{params : {username}})
 }
+export const getScores = async () => {
+    const username = (JSON.parse(getUser())).username;
+    try {
+        const response = await axios.get(SCORE_URL,{params : {username}}); 
+        return response.data;
+    } catch (error) {
+        console.error("Error fetching scores:", error);
+        return []; 
+    }
+};

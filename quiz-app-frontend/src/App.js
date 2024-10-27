@@ -15,13 +15,14 @@ import { useEffect } from "react";
 import Instructions from "./components/Instructions";
 import { isUserLoggedIn } from "./services/AuthService";
 import { isTakingTest } from "./services/QuizService";
-
+import { Dashboard } from "./components/Dashboard";
 function App() {
   return (
     <BrowserRouter>
       <Header />
       <Routes>
         <Route path="/" element={<TestRoute><Main /></TestRoute>} />
+        <Route path="/dashboard" element={<ProtectedRoute><TestRoute><Dashboard/></TestRoute></ProtectedRoute>} />
         <Route path="/account" element={<ProtectedRoute><TestRoute><Account /></TestRoute> </ProtectedRoute>} />
         <Route path="/login" element={<TestRoute><LoginRoute><Login /></LoginRoute></TestRoute>} />
         <Route path="/register" element={<TestRoute><Register /></TestRoute>} />
