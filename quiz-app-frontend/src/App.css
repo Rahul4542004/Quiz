@@ -36,4 +36,9 @@
     transform: rotate(360deg);
   }
 }
+/* In App.css or your global CSS file */
+.MuiAppBar-root {
+  width: 100%;
+}
+
 

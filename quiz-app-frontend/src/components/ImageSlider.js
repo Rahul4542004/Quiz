@@ -24,7 +24,7 @@ function ImageSlider() {
   };
 
   return (
-    <div className="slider">
+    <div className="slider" style={{ width: "100%" }}>
       <div className="arrowButtons">
         <button className="prev" onClick={() => moveSlider("prev")}>
           {"<"}

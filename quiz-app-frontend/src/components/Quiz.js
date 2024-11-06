@@ -167,7 +167,7 @@ export const Quiz = () => {
             const score = response.data;
             localStorage.setItem("score", score);
             localStorage.setItem("totalScore", currentData.length);
-            const scoreDetails = {subject : subject2+`(${topic1})`, score : score, totalScore : currentData.length};
+            const scoreDetails = {subject : subject2+(topic1!=='MAIN' ? `(${topic1})` : ''), score : score, totalScore : currentData.length};
             await saveScore(scoreDetails);
             navigate(`/finish`);
         } catch (err) {
@@ -244,7 +244,7 @@ export const Quiz = () => {
                     </div>
                     <Typography
                         variant='h4'
-                        sx={{ textAlign : "center", marginBlock : 4,marginTop : "-75px", color : "#ffeb3b"}}
+                        sx={{ textAlign : "center", marginBlock : 4,marginTop : "-20px", color : "#ffeb3b"}}
                     >
                         {subject2.toUpperCase()} 
                     </Typography>
