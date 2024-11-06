@@ -9,6 +9,7 @@ import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import { getToastValue, getUser, isUserLoggedIn, setToastValue } from "../services/AuthService";
 import "react-toastify/dist/ReactToastify.css";
+import { Box } from "@mui/material";
 
 const StyledCard = styled(Card)(({ theme }) => ({
   width: "100%",  // Full width within grid item
@@ -66,6 +67,12 @@ export default function Main() {
 
   return (
     <>
+    <Box sx={{
+      backgroundImage : 'url(/bimg3.jpg)',
+      backgroundSize : 'cover',
+      backgroundPosition : "center",
+      minHeight : "100vh"
+    }}>
       <Grid
         container
         spacing={8} // Adjusted spacing
@@ -80,7 +87,7 @@ export default function Main() {
               image="/quiz1.jpg"
               title="Resources"
             />
-            <CardContent>
+            <CardContent sx={{ backgroundColor : "#778899"}}>
               <Typography gutterBottom variant="h5" component="div">
                 RESOURCES
               </Typography>
@@ -98,7 +105,7 @@ export default function Main() {
               image="/quiz2.jpg"
               title="Test"
             />
-            <CardContent>
+            <CardContent sx={{ backgroundColor : "#778899"}}>
               <Typography gutterBottom variant="h5" component="div">
                 TEST
               </Typography>
@@ -121,6 +128,8 @@ export default function Main() {
         draggable
         pauseOnHover
       />
+
+      </Box>
     </>
   );
 }

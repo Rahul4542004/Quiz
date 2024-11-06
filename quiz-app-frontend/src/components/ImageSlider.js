@@ -3,9 +3,9 @@ import { useNavigate } from "react-router-dom";
 import "./ImageSlider.css";
 
 const images = [
-  { src: "dbms1.jpg", link: "/page1" },
+  { src: "dbms3.jpg", link: "/page1" },
   { src: "os2.jpg", link: "/page2" },
-  { src: "cns2.jpg", link: "/page3" },
+  { src: "cns3.png", link: "/page3" },
   { src: "oop.jpg", link: "/page4" },
 ];
 
