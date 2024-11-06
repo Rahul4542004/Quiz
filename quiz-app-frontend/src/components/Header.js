@@ -14,7 +14,7 @@ import { getUser, isUserLoggedIn, logout } from "../services/AuthService";
 import { useEffect, useState } from "react";
 import { isTakingTest } from "../services/QuizService";
 
-const settings = ["Home", "Account", "Dashboard","Logout"];
+const settings = ["Home", "Account", "Dashboard", "Logout"];
 const generateAvatars = () => {
   const avatars = [];
   const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
@@ -22,7 +22,7 @@ const generateAvatars = () => {
     avatars.push({
       letter: letters[i],
       src: "",
-      color: "orange"
+      color: "orange",
     });
   }
   return avatars;
@@ -44,8 +44,7 @@ function Header() {
   };
 
   const handleLogout = () => {
-    if(!isTakingTest())
-      logout();
+    if (!isTakingTest()) logout();
     navigate("/");
   };
 
@@ -56,8 +55,7 @@ function Header() {
       navigate("/account");
     } else if (setting === "Home") {
       navigate("/");
-    }
-    else if(setting === "Dashboard"){
+    } else if (setting === "Dashboard") {
       navigate("/dashboard");
     } else {
       handleCloseUserMenu();
@@ -68,11 +66,15 @@ function Header() {
     <AppBar
       position="static"
       sx={{
-        background: "radial-gradient(circle at 24.1% 68.8%, rgb(50, 50, 50) 0%, rgb(0, 0, 0) 99.4%)",
+        background:
+          "radial-gradient(circle at 24.1% 68.8%, rgb(50, 50, 50) 0%, rgb(0, 0, 0) 99.4%)",
+        width: "100%", // Ensures the AppBar spans the full width of the viewport
+        margin: 0, // Remove any margin
+        padding: 0, // Remove any padding
       }}
     >
-      <Container maxWidth="xl">
-        <Toolbar disableGutters>
+      <Container maxWidth={false} sx={{ padding: 0 }}> {/* Container full width */}
+        <Toolbar disableGutters sx={{ width: "100%" }}> {/* Ensure Toolbar spans full width */}
           <Typography
             variant="h6"
             noWrap
@@ -98,8 +100,10 @@ function Header() {
                   <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }} disableRipple>
                     <Avatar
                       alt="User Avatar"
-                      sx={{ background:
-                        "linear-gradient(98.3deg, rgb(255, 220, 0) 10.6%, rgb(255, 180, 0) 97.7%)", }}
+                      sx={{
+                        background:
+                          "linear-gradient(98.3deg, rgb(255, 220, 0) 10.6%, rgb(255, 180, 0) 97.7%)",
+                      }}
                     >
                       {JSON.parse(getUser()).username.toUpperCase().charAt(0)}
                     </Avatar>
@@ -138,7 +142,8 @@ function Header() {
                   borderRadius: "4px",
                   transition: "all 0.3s ease",
                   '&:hover': {
-                    background: "linear-gradient(98.3deg, rgb(255, 240, 100) 10.6%, rgb(255, 210, 100) 97.7%)",
+                    background:
+                      "linear-gradient(98.3deg, rgb(255, 240, 100) 10.6%, rgb(255, 210, 100) 97.7%)",
                     transform: "scale(1.10)",
                   },
                 }}

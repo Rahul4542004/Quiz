@@ -6,7 +6,6 @@
 }
 
 body {
-    /* background: black; */
     color: white;
 }
 
@@ -55,14 +54,16 @@ body {
     border-color: #ff1414cb;
 }
 
+/* Arrow Buttons */
 .arrowButtons {
     position: absolute;
-    top: 10px;
-    left: 10px;
+    top: 50%; /* Vertically center the arrows */
     z-index: 100;
+    width: 100%; /* Full width */
     display: flex;
-    gap: 10px;
-    align-items: center;
+    justify-content: space-between; /* Position the buttons at the edges */
+    transform: translateY(-50%); /* Adjust for vertical centering */
+    padding: 0 10px; /* Add some space from the edges */
 }
 
 .arrowButtons button {
@@ -80,4 +81,30 @@ body {
 .arrowButtons button:hover {
     background-color: white;
     color: black;
+}
+
+/* Responsive Design for smaller screens */
+@media (max-width: 768px) {
+    .arrowButtons button {
+        width: 35px;
+        height: 35px;
+    }
+
+    .slider .list .item .button button {
+        font-size: 14px; /* Smaller button text */
+        padding: 8px 16px;
+    }
+}
+
+@media (max-width: 480px) {
+
+    .arrowButtons button {
+        width: 30px;
+        height: 30px;
+    }
+
+    .slider .list .item .button button {
+        font-size: 12px; /* Even smaller button text */
+        padding: 6px 12px;
+    }
 }

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Button, Container, Grid, Card, CardContent, Typography, Box } from "@mui/material";
+import { Button, Grid, Card, CardContent, Typography, Box } from "@mui/material";
 import { useNavigate, useParams } from "react-router-dom";
 
 export const Subject = () => {
@@ -74,7 +74,6 @@ export const Subject = () => {
     setTopics(topicMapping[subject] || []);
     setDescriptions(descriptionMapping[subject] || []);
   }, [subject]);
-  
 
   const formatTopic = (topic) => {
     return topic
@@ -87,17 +86,17 @@ export const Subject = () => {
 
   return (
     <div>
-      <Box sx={{ width: '100%', height: '100%', backgroundColor: '#f5f5f5', padding: '50px', borderRadius: '8px' }}>
+      <Box sx={{ width: '100%', height: '100%', backgroundColor: '#f5f5f5', padding: { xs: '20px', sm: '50px' }, borderRadius: '8px' }}>
         <Grid container spacing={2} justifyContent="center">
           {messages.map((topic, index) => (
-            <Grid item xs={12} md={8} key={index}> 
-              <Card sx={{ width: '100%', height: '180px', marginBottom: '20px' }}>
-                <CardContent>
+            <Grid item xs={12} sm={6} md={4} key={index}>
+              <Card sx={{ width: '100%', height: 250, marginBottom: '20px', position: 'relative' }}> 
+                <CardContent sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', paddingBottom: '40px' }}>
                   <Typography variant="h5">{topic}</Typography>
                   <Typography variant="body2" color="text.secondary" sx={{ marginTop: "10px", width: "90%" }}>
                     {descriptions[index]}
                   </Typography>
-                  <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+                  <div style={{ position: 'absolute', bottom: '10px', right: '10px' }}>
                     <Button
                       variant="contained"
                       onClick={() => {
