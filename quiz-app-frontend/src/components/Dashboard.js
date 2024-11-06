@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { getScores } from '../services/QuizService';
 import { Box, Typography, Grid, Paper, useMediaQuery } from '@mui/material';
-import { BarChart, Bar, PieChart, Pie, Cell, Tooltip, XAxis, YAxis, Legend, ResponsiveContainer } from 'recharts';
+import { BarChart, Bar, PieChart, Pie, Cell, Tooltip, YAxis, Legend, ResponsiveContainer } from 'recharts';
 import GaugeChart from 'react-gauge-chart';
 
 // Custom Tooltip Component for Bar Chart
 const CustomTooltip = ({ active, payload }) => {
     if (active && payload && payload.length) {
-        const { date, name, percentage } = payload[0].payload;
+        const { name, percentage } = payload[0].payload;
         return (
             <Paper style={{ padding: '10px' }}>
                 <Typography>{`Subject: ${name}`}</Typography>
@@ -65,6 +65,8 @@ export const Dashboard = () => {
         return acc;
     }, []);
 
+    const chartHeight = isMobile ? 200 : 300; // Set a fixed height for both charts
+
     return (
         <Box sx={{ p: 3 }}>
             <Typography variant="h4" align="center" gutterBottom>
@@ -77,7 +79,7 @@ export const Dashboard = () => {
                 <Grid item xs={12} sm={6} md={4}>
                     <Paper elevation={3} sx={{ p: 3 }}>
                         <Typography variant="h6" align="center">Scores by Percentage</Typography>
-                        <ResponsiveContainer width="100%" height={isMobile ? 200 : 300}>
+                        <ResponsiveContainer width="100%" height={chartHeight}>
                             <BarChart data={barData}>
                                 <YAxis label={{ value: "Percentage (%)", angle: -90, position: "insideLeft" }} />
                                 <Tooltip content={<CustomTooltip />} />
@@ -92,7 +94,7 @@ export const Dashboard = () => {
                 <Grid item xs={12} sm={6} md={4}>
                     <Paper elevation={3} sx={{ p: 3 }}>
                         <Typography variant="h6" align="center">Performance Breakdown</Typography>
-                        <ResponsiveContainer width="100%" height={isMobile ? 200 : 300}>
+                        <ResponsiveContainer width="100%" height={chartHeight}>
                             <PieChart>
                                 <Pie
                                     data={pieData}
@@ -126,6 +128,7 @@ export const Dashboard = () => {
                             percent={latestScore / 100}
                             textColor="#000000"
                             formatTextValue={(value) => `${value}%`}
+                            style={{ height: chartHeight }} // Set the same height as pie chart
                         />
                     </Paper>
                 </Grid>
