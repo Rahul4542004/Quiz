@@ -102,8 +102,20 @@ export const Register = () => {
   };
 
   return (
+    <>
+        <div
+    style={{
+      backgroundImage: "url(/login2.jpg)",
+      backgroundSize: "cover",
+      backgroundPosition: "center",
+      minHeight: "100vh",
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+    }}
+    >
     <form
-      style={{ display: "flex", justifyContent: "center", marginTop: "80px", marginBottom: "80px" }}
+      style={{ display: "flex", justifyContent: "center", marginTop: "80px", marginBottom: "80px" , backgroundColor: "rgba(255, 255, 255, 0.85)",borderRadius : "15px"}}
       onSubmit={handleSubmit}
       noValidate
     >
@@ -285,5 +297,8 @@ export const Register = () => {
         pauseOnHover 
       />
     </form>
+
+    </div>
+    </>
   );
 };
